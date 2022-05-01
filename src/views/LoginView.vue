@@ -5,13 +5,10 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
 <template lang="pug">
 
     <div class="full-page">
-    <img src="images.jpeg">
+    <img src="../assets/images.jpeg">
     </div>
 </template>
 <style scoped>

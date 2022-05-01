@@ -1,9 +1,27 @@
-<script setup lang="ts">
-import TheHome from "@/components/TheHome.vue";
+
+<script>
+export default {
+
+}
 </script>
 
-<template>
-  <main>
-    <TheHome />
-  </main>
+<template lang="pug">
+
+    <div class="full-page">
+    <img src="./assets/images.jpeg">
+    </div>
 </template>
+<style scoped>
+*{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+.full-page{
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+}
+</style>
