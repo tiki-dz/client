@@ -2,8 +2,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import AboutViewVue from "../views/AboutView.vue";
-//import LoginViewVue from "@/views/LoginView.vue";
-//import NotFound from "../views/NotFound.vue";
+import LoginViewVue from "@/views/LoginView.vue";
+import NotFound from "../views/NotFound.vue";
 
 /*
 function CheckLogin(to, from, next) {
@@ -43,7 +43,7 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import("../views/AboutView.vue"),
     },
-    /*{
+    {
       path: "/:pathMatch(.*)*",
       name: "notFound",
       component: NotFound,
@@ -54,7 +54,7 @@ const router = createRouter({
       component: LoginViewVue,
       //beforeEnter: CheckLogin,
     },
-    */
+    
   ],
 });
 

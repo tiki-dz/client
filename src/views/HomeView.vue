@@ -6,8 +6,7 @@ export default {
 </script>
 
 <template lang="pug">
-
-    <div class="full-page">
+<div class="full-page">
     <img src="./assets/images.jpeg">
     </div>
 </template>
