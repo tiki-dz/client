@@ -14,8 +14,11 @@
   },
   "dependencies": {
     "element-plus": "^2.1.11",
+    "jquery": "^3.6.0",
+    "jquery.sticky": "^0.2.1",
     "vue": "^3.2.33",
-    "vue-router": "^4.0.14"
+    "vue-router": "^4.0.14",
+    "vue-slick": "^1.1.20"
   },
   "devDependencies": {
     "@cypress/vite-dev-server": "^2.2.2",
