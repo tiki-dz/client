@@ -3,7 +3,7 @@
   <section
     class="py-8"
     style="
-      background: linear-gradient(to right top, #ffdec9e1, #ff9a5c);
+      background: linear-gradient(to right top, #84ceeb, #c1c8e4, #8860d0);
       min-height: 100vh;
     "
   >

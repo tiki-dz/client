@@ -12,11 +12,6 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView,
-      children: [
-        // { path: "subCategory", name: "subCategory", component: subCategory },
-        // { path: "SubList/:idCategory", component: SubList },
-        // { path: "", component: Dashboard },
-      ],
       // beforeEnter: CheckLogin,
     },
     {
