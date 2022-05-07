@@ -12,6 +12,8 @@
           </button>
         </div>
         <form id="login" class="input-group-login">
+                <el-input v-model="input2" class="w-50 m-2" placeholder="Please Input" />
+
           <input
             type="email"
             class="input-field"
@@ -165,7 +167,7 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   box-sizing: border-box;
 }
 .full-page {
-  background: linear-gradient(to right top, #8860d0, #84ceeb, #c1c8e4);
+  background: #FCECDD;
   min-height: 100vh;
   width: 100%;
   background-position: center;
@@ -178,11 +180,11 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
 }
 */
 .form-box {
-  width: 380px;
+  width: 880px;
   height: 480px;
   position: relative;
   margin: 10% auto;
-  background: rgba(255, 255, 255, 0.5);
+  background: #f9cea5dc;
   padding: 10px;
   overflow: hidden;
   border-radius: 2rem;
@@ -217,7 +219,7 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   position: absolute;
   width: 120px;
   height: 100%;
-  background: #93b6f3;
+  background: #FEA82F;
   border-radius: 30px;
   transition: 0.5s;
 }
@@ -254,7 +256,7 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   cursor: pointer;
   display: block;
   margin: auto;
-  background: #93b6f3;
+  background: #FEA82F;
   border: 0;
   outline: none;
   border-radius: 30px;
