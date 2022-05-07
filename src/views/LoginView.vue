@@ -38,75 +38,119 @@
             </form>
           </el-col>
           <el-col :span="12">
-              <h1><b>Bienvenue !</b></h1>
-            <img src="../assets/logo.png" style="width:25rem;margin-left:-17%;margin-top:-10%"/>
-            
-            <a class="btn btn-google" href="#" title="Google Play" style="margin-left:28%;margin-bottom:1%"
+            <h1  style=" margin-left: -15%;"><b>Bienvenue !</b></h1>
+            <img
+              src="../assets/logo.png"
+              style="width: 25rem; margin-left: -35%; margin-top: -10%"
+            />
+
+            <a
+              class="btn btn-google"
+              href="#"
+              title="Google Play"
+              style="margin-left: 10%; margin-bottom: 1%"
               >Google Play</a
             >
           </el-col>
         </el-row>
 
         <form id="register" class="input-group-register">
-          <el-input
-            v-model="ruleForm.firstName"
-            placeholder="Prenom"
-            required
-            class="input-field"
-          ></el-input>
-          <el-input
-            v-model="ruleForm.lastName"
-            placeholder="Nom"
-            required
-            class="input-field"
-          ></el-input>
-          <el-input
-            v-model="ruleForm.email"
-            placeholder="email"
-            class="input-field"
-          ></el-input
-          ><el-input
-            id="password"
-            placeholder="mot de passe"
-            v-model="ruleForm.password"
-            show-password
-            class="input-field"
-          ></el-input
-          ><el-input
-            id="phoneNumber"
-            v-model="ruleForm.phoneNumber"
-            placeholder="numero de telephone"
-            class="input-field"
-          ></el-input
-          ><el-date-picker
-            id="birthDate"
-            v-model="ruleForm.birthDate"
-            type="date"
-            placeholder="date de naissance"
-            value-format="YYYY/MM/DD"
-            class="input-field"
-          >
-          </el-date-picker
-          ><el-select
-            id="exampleFormControlSelect1"
-            placeholder="sexe"
-            v-model="ruleForm.sexe"
-            class="input-field"
-          >
-            <el-option
-              v-for="item in sexeopt"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            ></el-option>
-          </el-select>
-          <el-input
-            id="city"
-            v-model="ruleForm.city"
-            placeholder="ville"
-          ></el-input>
+          <el-row>
+            <el-col :span="10">
+              <el-input
+                v-model="ruleForm.firstName"
+                placeholder="Prenom"
+                required
+                class="input-field"
+              ></el-input>
+            </el-col>
+                        <el-col :span="2"></el-col>
 
-          <button type="submit" class="submit-btn" @click="signup()">
+            <el-col :span="10">
+              <el-input
+                v-model="ruleForm.lastName"
+                placeholder="Nom"
+                required
+                class="input-field"
+              ></el-input>
+            </el-col>
+          </el-row>
+
+        
+
+          <el-row>
+            <el-col :span="10"
+              ><el-input
+                id="phoneNumber"
+                v-model="ruleForm.phoneNumber"
+                placeholder="numero de telephone"
+                class="input-field"
+              ></el-input>
+            </el-col>
+                        <el-col :span="2"></el-col>
+
+            <el-col :span="10">
+              <el-date-picker
+                id="birthDate"
+                v-model="ruleForm.birthDate"
+                type="date"
+                placeholder="date de naissance"
+                value-format="YYYY/MM/DD"
+                class="input-field"
+              >
+              </el-date-picker
+            ></el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="10">
+              <el-select
+                id="exampleFormControlSelect1"
+                placeholder="sexe"
+                v-model="ruleForm.sexe"
+                class="input-field"
+              >
+                <el-option
+                  v-for="item in sexeopt"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                ></el-option>
+              </el-select>
+            </el-col>
+                        <el-col :span="2"></el-col>
+
+            <el-col :span="10">
+              <el-input
+                id="city"
+                v-model="ruleForm.city"
+                placeholder="ville"
+                                class="input-field"
+
+              ></el-input>
+            </el-col>
+          </el-row>
+            <el-row>
+            <el-col :span="10">
+              <el-input
+                v-model="ruleForm.email"
+                placeholder="email"
+                class="input-field"
+              ></el-input>
+            </el-col>
+                        <el-col :span="2"></el-col>
+
+            <el-col span="10">
+              <el-input
+                id="password"
+                placeholder="mot de passe"
+                v-model="ruleForm.password"
+                show-password
+                class="input-field"
+              ></el-input>
+            </el-col>
+          </el-row>
+
+          <button type="submit" class="submit-btn" @click="signup()" style="  margin-top: 5%;">
             S'inscrire
           </button>
         </form>
@@ -224,7 +268,7 @@ export default {
 
     register() {
       document.getElementById("login").style.left = "-290px";
-      document.getElementById("register").style.left = "-45%";
+      document.getElementById("register").style.left = "-50%";
       document.getElementById("btn").style.left = "110px";
     },
     login() {
@@ -244,7 +288,8 @@ window.onclick = function (event) {
 
 <!-- Add "scoped" attribute to limit CSS to this component only 
 background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3e1
-    url("../assets/m1.jpg");-->
+    url("../assets/m1.jpg");
+   -->
 <style scoped>
 * {
   margin: 0%;
@@ -252,7 +297,7 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   box-sizing: border-box;
 }
 .full-page {
-  background: #fcecdd;
+  background:  #fcecdd;
   min-height: 100vh;
   width: 100%;
   background-position: center;
@@ -314,9 +359,9 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
 .input-group-register {
   top: 120px;
   position: absolute;
-  width: 280px;
+  width: 180px;
   transition: 0.5s;
-  margin-left: 100%;
+  margin-left: 95%;
 }
 .input-field {
   width: 100%;
@@ -354,11 +399,11 @@ input {
 }
 
 #register {
-  left: 450px;
+  left: 420px;
   margin: 4px, 4px;
   padding: 4px;
-  width: 300px;
-  height: 300px;
+  width: 450px;
+  height: 500px;
   overflow-x: hidden;
   overflow-y: auto;
   text-align: justify;
@@ -386,7 +431,6 @@ input {
   border-radius: 50%;
   animation-name: example;
   animation-duration: 60s;
-
 }
 @keyframes example {
   0% {
@@ -530,7 +574,8 @@ a.btn-google {
   font-size: 10px;
   font-weight: 400;
 }
-h1{
-    color: white;
-font-size: 50px;}
+h1 {
+  color: white;
+  font-size: 50px;
+}
 </style>
