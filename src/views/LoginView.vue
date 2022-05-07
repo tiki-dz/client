@@ -12,23 +12,24 @@
           </button>
         </div>
         <form id="login" class="input-group-login">
-                <el-input v-model="input2" class="w-50 m-2" placeholder="Please Input" />
 
-          <input
+          <el-input
             type="email"
             class="input-field"
             placeholder="Email"
             required
-            v-model.trim="form.email"
+            v-model="form.email"
             name="email"
           />
-          <input
-            type="text"
+          <el-input
+            type="password"
             class="input-field"
             placeholder="Mot de passe"
             v-model="form.password"
             name="password"
             required
+                                show-password
+
           />
           <p>Mot de passe oublier?</p>
           <button type="submit" class="submit-btn" @click="connexion()">
@@ -38,8 +39,8 @@
         <form id="register" class="input-group-register">
        
 
- <input type="text" class="input-field" placeholder="nom" required />
-          <input
+ <el-input type="text" class="input-field" placeholder="nom" required />
+          <el-input
             type="text"
             class="input-field"
             placeholder="prenom"
@@ -303,7 +304,16 @@ input {
   right: 20%;
   z-index: 2;
     border-radius: 50%;
+     animation-name: example;
+  animation-duration: 60s;
 
+}
+@keyframes example {
+  0%   {background-color:rgb(192, 147, 12); left:0px; top:0px;}
+  25%  {background-color:rgb(255, 200, 0); left:200px; top:0px;}
+  50%  {background-color:rgb(255, 132, 0); left:200px; top:200px;}
+  75%  {background-color:rgb(214, 193, 73); left:0px; top:200px;}
+  100% {background-color:rgb(255, 191, 0); left:0px; top:0px;}
 }
 .circle2 {
   bottom: 8%;
