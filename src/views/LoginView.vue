@@ -11,77 +11,108 @@
             Inscription
           </button>
         </div>
-        <form id="login" class="input-group-login">
+        <el-row id="login">
+          <el-col :span="12">
+            <form class="input-group-login">
+              <el-input
+                type="email"
+                class="input-field"
+                placeholder="Email"
+                required
+                v-model="form.email"
+                name="email"
+              />
+              <el-input
+                type="password"
+                class="input-field"
+                placeholder="Mot de passe"
+                v-model="form.password"
+                name="password"
+                required
+                show-password
+              />
+              <p>Mot de passe oublier?</p>
+              <button type="submit" class="submit-btn" @click="connexion()">
+                Connexion
+              </button>
+            </form>
+          </el-col>
+          <el-col :span="12">
+              <h1><b>Bienvenue !</b></h1>
+            <img src="../assets/logo.png" style="width:25rem;margin-left:-17%;margin-top:-10%"/>
+            
+            <a class="btn btn-google" href="#" title="Google Play" style="margin-left:28%;margin-bottom:1%"
+              >Google Play</a
+            >
+          </el-col>
+        </el-row>
 
-          <el-input
-            type="email"
-            class="input-field"
-            placeholder="Email"
-            required
-            v-model="form.email"
-            name="email"
-          />
-          <el-input
-            type="password"
-            class="input-field"
-            placeholder="Mot de passe"
-            v-model="form.password"
-            name="password"
-            required
-                                show-password
-
-          />
-          <p>Mot de passe oublier?</p>
-          <button type="submit" class="submit-btn" @click="connexion()">
-            Connexion
-          </button>
-        </form>
         <form id="register" class="input-group-register">
-       
-
- <el-input type="text" class="input-field" placeholder="nom" required />
           <el-input
-            type="text"
-            class="input-field"
-            placeholder="prenom"
+            v-model="ruleForm.firstName"
+            placeholder="Prenom"
             required
-          />
-          <input
-            type="text"
             class="input-field"
-            placeholder="prenom"
+          ></el-input>
+          <el-input
+            v-model="ruleForm.lastName"
+            placeholder="Nom"
             required
-          /><input
-            type="text"
             class="input-field"
-            placeholder="prenom"
-            required
-          /><input
-            type="text"
+          ></el-input>
+          <el-input
+            v-model="ruleForm.email"
+            placeholder="email"
             class="input-field"
-            placeholder="prenom"
-            required
-          />
-          <input type="text" class="input-field" placeholder="Email" required />
-          <input
-            type="text"
+          ></el-input
+          ><el-input
+            id="password"
+            placeholder="mot de passe"
+            v-model="ruleForm.password"
+            show-password
             class="input-field"
-            placeholder="Mot de passe"
-            required
-          />
-          <button type="submit" class="submit-btn">S'inscrire</button>
-          
-         
+          ></el-input
+          ><el-input
+            id="phoneNumber"
+            v-model="ruleForm.phoneNumber"
+            placeholder="numero de telephone"
+            class="input-field"
+          ></el-input
+          ><el-date-picker
+            id="birthDate"
+            v-model="ruleForm.birthDate"
+            type="date"
+            placeholder="date de naissance"
+            value-format="YYYY/MM/DD"
+            class="input-field"
+          >
+          </el-date-picker
+          ><el-select
+            id="exampleFormControlSelect1"
+            placeholder="sexe"
+            v-model="ruleForm.sexe"
+            class="input-field"
+          >
+            <el-option
+              v-for="item in sexeopt"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+          <el-input
+            id="city"
+            v-model="ruleForm.city"
+            placeholder="ville"
+          ></el-input>
+
+          <button type="submit" class="submit-btn" @click="signup()">
+            S'inscrire
+          </button>
         </form>
       </div>
     </div>
     <div class="circle1"></div>
-        <div class="circle2"></div>
-    <div class="circle3"></div>
-        <div class="circle4"></div>
-
-
-
   </div>
 </template>
 
@@ -96,6 +127,28 @@ export default {
   },
   data() {
     return {
+      ruleForm: {
+        search: "",
+        firstName: "",
+        lastName: "",
+        password: "",
+        password2: "",
+        email: "",
+        birthDate: "",
+        phoneNumber: "",
+        sexe: "",
+        city: "",
+      },
+      sexeopt: [
+        {
+          value: 0,
+          label: "FEMME",
+        },
+        {
+          value: 1,
+          label: "HOMME",
+        },
+      ],
       form: {
         email: "",
         password: "",
@@ -104,6 +157,37 @@ export default {
   },
 
   methods: {
+    async signup() {
+      try {
+        if (this.ruleForm.password == this.ruleForm.password2) {
+          const response = await authService.SignupClient({
+            firstName: this.ruleForm.firstName,
+            lastName: this.ruleForm.lastName,
+            birthDate: this.ruleForm.birthDate,
+            sexe: this.ruleForm.sexe,
+            email: this.ruleForm.email,
+            password: this.ruleForm.password,
+            city: this.ruleForm.city,
+            phoneNumber: this.ruleForm.phoneNumber,
+          });
+          ElNotification({
+            title: "Succès",
+            message: "Utilisateur créé avec succès ",
+            type: "success",
+          });
+          console.log(response.data);
+        } else {
+          this.error = "problem in confirmation of the git fepassword";
+        }
+      } catch (error) {
+        ElNotification({
+          title: "Echec",
+          message: "Impossible de créer l'utilisateur ",
+          type: "error",
+        });
+        console.log(error);
+      }
+    },
     async connexion() {
       try {
         const account = await authService.Login({
@@ -139,13 +223,13 @@ export default {
     },
 
     register() {
-      document.getElementById("login").style.left = "-400px";
-      document.getElementById("register").style.left = "50px";
+      document.getElementById("login").style.left = "-290px";
+      document.getElementById("register").style.left = "-45%";
       document.getElementById("btn").style.left = "110px";
     },
     login() {
       document.getElementById("login").style.left = "50px";
-      document.getElementById("register").style.left = "450px";
+      document.getElementById("register").style.left = "1000px";
       document.getElementById("btn").style.left = "0px";
     },
   },
@@ -168,7 +252,7 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   box-sizing: border-box;
 }
 .full-page {
-  background: #FCECDD;
+  background: #fcecdd;
   min-height: 100vh;
   width: 100%;
   background-position: center;
@@ -190,11 +274,7 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   overflow: hidden;
   border-radius: 2rem;
   z-index: 3;
-
-
-
-            
-            }
+}
 
 .button-box {
   width: 220px;
@@ -220,12 +300,12 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   position: absolute;
   width: 120px;
   height: 100%;
-  background: #FEA82F;
+  background: #fea82f;
   border-radius: 30px;
   transition: 0.5s;
 }
 .input-group-login {
-  top: 150px;
+  top: 10px;
   position: absolute;
   width: 280px;
   transition: 0.5s;
@@ -236,6 +316,7 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   position: absolute;
   width: 280px;
   transition: 0.5s;
+  margin-left: 100%;
 }
 .input-field {
   width: 100%;
@@ -257,7 +338,7 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   cursor: pointer;
   display: block;
   margin: auto;
-  background: #FEA82F;
+  background: #fea82f;
   border: 0;
   outline: none;
   border-radius: 30px;
@@ -274,13 +355,13 @@ input {
 
 #register {
   left: 450px;
-      margin:4px, 4px;
-                padding:4px;
-                 width: 280px;
+  margin: 4px, 4px;
+  padding: 4px;
+  width: 300px;
   height: 300px;
-                overflow-x: hidden;
-                overflow-y: auto;
-                text-align:justify;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: justify;
 }
 
 .circle1,
@@ -295,7 +376,6 @@ input {
   height: 10rem;
   width: 10rem;
   position: absolute;
-
 }
 .circle1 {
   height: 20rem;
@@ -303,39 +383,58 @@ input {
   bottom: 25%;
   right: 20%;
   z-index: 2;
-    border-radius: 50%;
-     animation-name: example;
+  border-radius: 50%;
+  animation-name: example;
   animation-duration: 60s;
 
 }
 @keyframes example {
-  0%   {background-color:rgb(192, 147, 12); left:0px; top:0px;}
-  25%  {background-color:rgb(255, 200, 0); left:200px; top:0px;}
-  50%  {background-color:rgb(255, 132, 0); left:200px; top:200px;}
-  75%  {background-color:rgb(214, 193, 73); left:0px; top:200px;}
-  100% {background-color:rgb(255, 191, 0); left:0px; top:0px;}
+  0% {
+    background-color: rgb(192, 147, 12);
+    left: 0px;
+    top: 0px;
+  }
+  25% {
+    background-color: rgb(255, 200, 0);
+    left: 200px;
+    top: 10px;
+  }
+  50% {
+    background-color: rgb(255, 132, 0);
+    left: 200px;
+    top: 200px;
+  }
+  75% {
+    background-color: rgb(214, 193, 73);
+    left: 0px;
+    top: 200px;
+  }
+  100% {
+    background-color: rgb(255, 191, 0);
+    left: 0px;
+    top: 0px;
+  }
 }
 .circle2 {
   bottom: 8%;
   right: 30%;
   z-index: 2;
-     border-radius: 10%;
-
+  border-radius: 10%;
 }
 .circle3 {
-        height:  15rem;
+  height: 15rem;
   width: 15rem;
   top: 5%;
   left: 22%;
   z-index: 2;
-   border-radius: 10%;
+  border-radius: 10%;
 }
 .circle4 {
-     height: 50rem;
+  height: 50rem;
   width: 50rem;
   top: 3%;
   left: -45%;
-      border-radius: 50%;
+  border-radius: 50%;
 
   z-index: 2;
 }
@@ -346,4 +445,92 @@ p {
   font-size: small;
 }
 
+@font-face {
+  font-family: "fontfutura";
+  src: url("https://fonts.googleapis.com/css?family=Open+Sans") format("ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+a.btn-google {
+  color: #fff;
+}
+.btn {
+  padding: 10px 16px;
+  margin: 5px;
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn:active:focus,
+.btn:focus {
+  outline: 0;
+}
+.btn:focus,
+.btn:hover {
+  color: #333;
+  text-decoration: none;
+  outline: 0;
+}
+.btn:active {
+  outline: 0;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.btn-google {
+  color: #fff;
+  background-color: #111;
+  border-color: #000;
+  padding: 15px 16px 5px 40px;
+  position: relative;
+  font-family: fontfutura;
+  font-weight: 600;
+}
+.btn-google:focus {
+  color: #fff;
+  background-color: #555;
+  border-color: #000;
+}
+.btn-google:active,
+.btn-google:hover {
+  color: #fff;
+  background-color: #555;
+  border-color: #000;
+}
+.btn-google:before {
+  content: "";
+  background-image: url(https://4.bp.blogspot.com/-52U3eP2JDM4/WSkIT1vbUxI/AAAAAAAArQA/iF1BeARv2To-2FGQU7V6UbNPivuv_lccACLcB/s30/nexus2cee_ic_launcher_play_store_new-1.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  margin-top: -15px;
+}
+.btn-google:after {
+  content: "DISPONIBLE SUR";
+  position: absolute;
+  top: 5px;
+  left: 40px;
+  font-size: 10px;
+  font-weight: 400;
+}
+h1{
+    color: white;
+font-size: 50px;}
 </style>
