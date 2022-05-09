@@ -289,6 +289,7 @@ window.onclick = function (event) {
 <!-- Add "scoped" attribute to limit CSS to this component only 
 background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3e1
     url("../assets/m1.jpg");
+    #fcecdd
    -->
 <style scoped>
 * {
