@@ -1,7 +1,32 @@
-<script setup lang="ts">
+<script>
 import { ref } from "vue";
-
-const currentDate = ref(new Date());
+import homeService from "../services/homeService";
+export default {
+  data() {
+    return {
+      currentPage: 1,
+      Allevents: [],
+      pages: 1,
+      pageSize: 50,
+    };
+  },
+  mounted: function () {
+    this.handleCurrentChange(1);
+  },
+  methods: {
+    async handleCurrentChange(pageNumber) {
+      console.log("events");
+      let events = await homeService.AllEvents({
+        page: pageNumber - 1,
+        size: this.pageSize,
+      });
+      console.log(events);
+      this.Allevents = events.data.events;
+      this.pages = events.data.totalItems;
+      console.log(this.pages);
+    },
+  },
+};
 </script>
 
 <template>
@@ -49,560 +74,48 @@ const currentDate = ref(new Date());
     </el-header>
     <el-main style="margin: 0 100px">
       <el-row>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
+        <el-col
+          :xs="24"
+          :sm="12"
+          :md="6"
+          :lg="6"
+          :xl="6"
+          style="padding: 15px"
+          v-for="(event, index) in Allevents"
+          :key="event"
+        >
           <el-card
             class="card"
             :body-style="{ padding: '0px' }"
             style="border-radius: 10px"
           >
             <img
-              src="../assets/event.jpg"
+              :src="event.eventImage"
               class="image"
               style="width: 100%; height: 250px; object-fit: cover"
             />
             <div style="padding: 14px" padding="10px">
-              <h4>Djam</h4>
-              <p>Oran,Hotel Méridien</p>
+              <h4 v-if="event.name.length < 20">{{ event.name }}</h4>
+              <h4 v-else>{{ event.name.substring(0, 19) }} ..</h4>
+              <img
+                src="../assets/icons/date.png"
+                style="width: 5%; height: 5%; margin-right: 10px"
+              />
+              <time class="time">{{ event.startDate.split("T")[0] }} &nbsp; 10:00</time
+              ><br />
+
+              <p>
+                <img
+                  src="../assets/icons/adress.png"
+                  style="width: 5%; height: 5%; margin-right: 10px"
+                />{{ event.address }}
+              </p>
               <div class="bottom">
-                <h5></h5>
-                <h5>1500 DA</h5>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
-          <el-card
-            class="card"
-            :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
-          >
-            <img
-              src="../assets/event1.jpg"
-              class="image"
-              style="width: 100%; height: 250px; object-fit: cover"
-            />
-            <div style="padding: 14px" padding="10px">
-              <h4>Nidhal Saadi</h4>
-              <p>Alger ,Theatre National</p>
-              <div class="bottom">
-                <h4></h4>
-                <h5>2000 DA</h5>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
-          <el-card
-            class="card"
-            :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
-          >
-            <img
-              src="../assets/event2.jpg"
-              class="image"
-              style="width: 100%; height: 250px; object-fit: cover"
-            />
-            <div style="padding: 14px" padding="10px">
-              <h4>Djam & Khassani</h4>
-              <p>Opéra d'Alger</p>
-              <div class="bottom">
-                <h4></h4>
-                <h5>1500 DA</h5>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
-          <el-card
-            class="card"
-            :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
-          >
-            <img
-              src="../assets/event3.jpg"
-              class="image"
-              style="width: 100%; height: 250px; object-fit: cover"
-            />
-            <div style="padding: 14px" padding="10px">
-              <h4>Amine Radi</h4>
-              <p>Oran,Hotel Méridien</p>
-              <div class="bottom">
-                <h4></h4>
-                <h5>3000 DA</h5>
+                <h5 v-if="event.price != null">{{ event.price }} DA</h5>
+                <h5 v-else>Gratuit</h5>
                 <el-button type="primary" class="button" size="large">
                   Réserve
                 </el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
-          <el-card
-            class="card"
-            :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
-          >
-            <img
-              src="../assets/event4.jpg"
-              class="image"
-              style="width: 100%; height: 250px; object-fit: cover"
-            />
-            <div style="padding: 14px" padding="10px">
-              <h4>Babilone</h4>
-              <p>sidi bel abbes,Théatre Régional</p>
-              <div class="bottom">
-                <h5>8000 DA</h5>
-                <el-button type="primary" class="button"> Réserve </el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
-          <el-card
-            class="card"
-            :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
-          >
-            <img
-              src="../assets/event.jpg"
-              class="image"
-              style="width: 100%; height: 250px; object-fit: cover"
-            />
-            <div style="padding: 14px" padding="10px">
-              <h4>Djam</h4>
-              <p>Oran,Hotel Méridien</p>
-              <div class="bottom">
-                <h5>1000 DA</h5>
-                <el-button type="primary" class="button" size="large">
-                  Réserve
-                </el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
-          <el-card
-            class="card"
-            :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
-          >
-            <img
-              src="../assets/event1.jpg"
-              class="image"
-              style="width: 100%; height: 250px; object-fit: cover"
-            />
-            <div style="padding: 14px" padding="10px">
-              <h4>Nidhal Saadi</h4>
-              <p>Alger ,Theatre National</p>
-              <div class="bottom">
-                <h5>2000 DA</h5>
-                <el-button type="primary" class="button" size="large">
-                  Réserve
-                </el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
-          <el-card
-            class="card"
-            :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
-          >
-            <img
-              src="../assets/event2.jpg"
-              class="image"
-              style="width: 100%; height: 250px; object-fit: cover"
-            />
-            <div style="padding: 14px" padding="10px">
-              <h4>Djam & Khassani</h4>
-              <p>Opéra d'Alger</p>
-              <div class="bottom">
-                <h5></h5>
-                <h5>1500 DA</h5>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
-          <el-card
-            class="card"
-            :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
-          >
-            <img
-              src="../assets/event3.jpg"
-              class="image"
-              style="width: 100%; height: 250px; object-fit: cover"
-            />
-            <div style="padding: 14px" padding="10px">
-              <h4>Amine Radi</h4>
-              <p>Oran,Hotel Méridien</p>
-              <div class="bottom">
-                <h5>3000 DA</h5>
-                <el-button type="primary" class="button" size="large">
-                  Réserve
-                </el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
-          <el-card
-            class="card"
-            :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
-          >
-            <img
-              src="../assets/event4.jpg"
-              class="image"
-              style="width: 100%; height: 250px; object-fit: cover"
-            />
-            <div style="padding: 14px" padding="10px">
-              <h4>Babilone</h4>
-              <p>sidi bel abbes,Théatre Régional</p>
-              <div class="bottom">
-                <h5>8000 DA</h5>
-                <el-button type="primary" class="button"> Réserve </el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
-          <el-card
-            class="card"
-            :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
-          >
-            <img
-              src="../assets/event.jpg"
-              class="image"
-              style="width: 100%; height: 250px; object-fit: cover"
-            />
-            <div style="padding: 14px" padding="10px">
-              <h4>Djam</h4>
-              <p>Oran,Hotel Méridien</p>
-              <div class="bottom">
-                <h5>1000 DA</h5>
-                <el-button type="primary" class="button" size="large">
-                  Réserve
-                </el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
-          <el-card
-            class="card"
-            :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
-          >
-            <img
-              src="../assets/event1.jpg"
-              class="image"
-              style="width: 100%; height: 250px; object-fit: cover"
-            />
-            <div style="padding: 14px" padding="10px">
-              <h4>Nidhal Saadi</h4>
-              <p>Alger ,Theatre National</p>
-              <div class="bottom">
-                <h5>2000 DA</h5>
-                <el-button type="primary" class="button" size="large">
-                  Réserve
-                </el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
-          <el-card
-            class="card"
-            :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
-          >
-            <img
-              src="../assets/event2.jpg"
-              class="image"
-              style="width: 100%; height: 250px; object-fit: cover"
-            />
-            <div style="padding: 14px" padding="10px">
-              <h4>Djam & Khassani</h4>
-              <p>Opéra d'Alger</p>
-              <div class="bottom">
-                <h5>1500 DA</h5>
-                <el-button type="primary" class="button" size="large">
-                  Réserve
-                </el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
-          <el-card
-            class="card"
-            :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
-          >
-            <img
-              src="../assets/event3.jpg"
-              class="image"
-              style="width: 100%; height: 250px; object-fit: cover"
-            />
-            <div style="padding: 14px" padding="10px">
-              <h4>Amine Radi</h4>
-              <p>Oran,Hotel Méridien</p>
-              <div class="bottom">
-                <h5>3000 DA</h5>
-                <el-button type="primary" class="button" size="large">
-                  Réserve
-                </el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
-          <el-card
-            class="card"
-            :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
-          >
-            <img
-              src="../assets/event4.jpg"
-              class="image"
-              style="width: 100%; height: 250px; object-fit: cover"
-            />
-            <div style="padding: 14px" padding="10px">
-              <h4>Babilone</h4>
-              <p>sidi bel abbes,Théatre Régional</p>
-              <div class="bottom">
-                <h5>8000 DA</h5>
-                <el-button type="primary" class="button"> Réserve </el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
-          <el-card
-            class="card"
-            :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
-          >
-            <img
-              src="../assets/event.jpg"
-              class="image"
-              style="width: 100%; height: 250px; object-fit: cover"
-            />
-            <div style="padding: 14px" padding="10px">
-              <h4>Djam</h4>
-              <p>Oran,Hotel Méridien</p>
-              <div class="bottom">
-                <h5>1000 DA</h5>
-                <el-button type="primary" class="button" size="large">
-                  Réserve
-                </el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
-          <el-card
-            class="card"
-            :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
-          >
-            <img
-              src="../assets/event1.jpg"
-              class="image"
-              style="width: 100%; height: 250px; object-fit: cover"
-            />
-            <div style="padding: 14px" padding="10px">
-              <h4>Nidhal Saadi</h4>
-              <p>Alger ,Theatre National</p>
-              <div class="bottom">
-                <h5>2000 DA</h5>
-                <el-button type="primary" class="button" size="large">
-                  Réserve
-                </el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
-          <el-card
-            class="card"
-            :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
-          >
-            <img
-              src="../assets/event2.jpg"
-              class="image"
-              style="width: 100%; height: 250px; object-fit: cover"
-            />
-            <div style="padding: 14px" padding="10px">
-              <h4>Djam & Khassani</h4>
-              <p>Opéra d'Alger</p>
-              <div class="bottom">
-                <h5>1500 DA</h5>
-                <el-button type="primary" class="button" size="large">
-                  Réserve
-                </el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
-          <el-card
-            class="card"
-            :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
-          >
-            <img
-              src="../assets/event3.jpg"
-              class="image"
-              style="width: 100%; height: 250px; object-fit: cover"
-            />
-            <div style="padding: 14px" padding="10px">
-              <h4>Amine Radi</h4>
-              <p>Oran,Hotel Méridien</p>
-              <div class="bottom">
-                <h5>3000 DA</h5>
-                <el-button type="primary" class="button" size="large">
-                  Réserve
-                </el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
-          <el-card
-            class="card"
-            :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
-          >
-            <img
-              src="../assets/event4.jpg"
-              class="image"
-              style="width: 100%; height: 250px; object-fit: cover"
-            />
-            <div style="padding: 14px" padding="10px">
-              <h4>Babilone</h4>
-              <p>sidi bel abbes,Théatre Régional</p>
-              <div class="bottom">
-                <h5>8000 DA</h5>
-                <el-button type="primary" class="button"> Réserve </el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
-          <el-card
-            class="card"
-            :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
-          >
-            <img
-              src="../assets/event.jpg"
-              class="image"
-              style="width: 100%; height: 250px; object-fit: cover"
-            />
-            <div style="padding: 14px" padding="10px">
-              <h4>Djam</h4>
-              <p>Oran,Hotel Méridien</p>
-              <div class="bottom">
-                <h5>1000 DA</h5>
-                <el-button type="primary" class="button" size="large">
-                  Réserve
-                </el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
-          <el-card
-            class="card"
-            :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
-          >
-            <img
-              src="../assets/event1.jpg"
-              class="image"
-              style="width: 100%; height: 250px; object-fit: cover"
-            />
-            <div style="padding: 14px" padding="10px">
-              <h4>Nidhal Saadi</h4>
-              <p>Alger ,Theatre National</p>
-              <div class="bottom">
-                <h5>2000 DA</h5>
-                <el-button type="primary" class="button" size="large">
-                  Réserve
-                </el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
-          <el-card
-            class="card"
-            :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
-          >
-            <img
-              src="../assets/event2.jpg"
-              class="image"
-              style="width: 100%; height: 250px; object-fit: cover"
-            />
-            <div style="padding: 14px" padding="10px">
-              <h4>Djam & Khassani</h4>
-              <p>Opéra d'Alger</p>
-              <div class="bottom">
-                <h5>1500 DA</h5>
-                <el-button type="primary" class="button" size="large">
-                  Réserve
-                </el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
-          <el-card
-            class="card"
-            :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
-          >
-            <img
-              src="../assets/event3.jpg"
-              class="image"
-              style="width: 100%; height: 250px; object-fit: cover"
-            />
-            <div style="padding: 14px" padding="10px">
-              <h4>Amine Radi</h4>
-              <p>Oran,Hotel Méridien</p>
-              <div class="bottom">
-                <h5>3000 DA</h5>
-                <el-button type="primary" class="button" size="large">
-                  Réserve
-                </el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" style="padding: 15px">
-          <el-card
-            class="card"
-            :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
-          >
-            <img
-              src="../assets/event4.jpg"
-              class="image"
-              style="width: 100%; height: 250px; object-fit: cover"
-            />
-            <div style="padding: 14px" padding="10px">
-              <h4>Babilone</h4>
-              <p>sidi bel abbes,Théatre Régional</p>
-              <div class="bottom">
-                <h5>8000 DA</h5>
-                <el-button type="primary" class="button"> Réserve </el-button>
               </div>
             </div>
           </el-card>
