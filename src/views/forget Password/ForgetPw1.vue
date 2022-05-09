@@ -3,7 +3,7 @@
   <section
     class="py-8"
     style="
-      background: linear-gradient(to right top, #ffdec9e1, #ff9a5c);
+      background: linear-gradient(to left bottom, #ffdec9e1, #ffbc80);
       min-height: 100vh;
     "
   >
@@ -20,11 +20,11 @@
           <el-form
             ref="formRef2"
             :model="dynamicValidateForm"
-            label-width="120px"
+            label-width="80px"
             :label-position="labelPosition"
           >
             <el-form-item
-              label="Code"
+              label=""
               prop="code"
               :rules="[{ required: true, message: 'code is required' }]"
             >

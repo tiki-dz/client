@@ -6,14 +6,9 @@ const currentDate = ref(new Date());
 
 <template>
   <el-container class="test">
-    <el-header
-      style="
-        background: linear-gradient(to left top, #ff9a264d, rgba(199, 56, 235, 0.302));
-        height: 400px;
-      "
-    >
-      <br /><br />
-      <el-carousel :interval="4000" type="card" height="300px">
+    <el-header style="background: #fff; margin: 20px; border-radius: 10px; height: 400px">
+      <br />
+      <el-carousel :interval="4000" type="card" height="300px" style="margin: 20px">
         <el-carousel-item style="border-radius: 5px">
           <img
             src="../assets/cc1.jpg"
@@ -69,10 +64,8 @@ const currentDate = ref(new Date());
               <h4>Djam</h4>
               <p>Oran,Hotel Méridien</p>
               <div class="bottom">
-                <h5>1000 DA</h5>
-                <el-button type="primary" class="button" size="large">
-                  Réserve
-                </el-button>
+                <h5></h5>
+                <h5>1500 DA</h5>
               </div>
             </div>
           </el-card>
@@ -92,10 +85,8 @@ const currentDate = ref(new Date());
               <h4>Nidhal Saadi</h4>
               <p>Alger ,Theatre National</p>
               <div class="bottom">
+                <h4></h4>
                 <h5>2000 DA</h5>
-                <el-button type="primary" class="button" size="large">
-                  Réserve
-                </el-button>
               </div>
             </div>
           </el-card>
@@ -115,10 +106,8 @@ const currentDate = ref(new Date());
               <h4>Djam & Khassani</h4>
               <p>Opéra d'Alger</p>
               <div class="bottom">
+                <h4></h4>
                 <h5>1500 DA</h5>
-                <el-button type="primary" class="button" size="large">
-                  Réserve
-                </el-button>
               </div>
             </div>
           </el-card>
@@ -138,6 +127,7 @@ const currentDate = ref(new Date());
               <h4>Amine Radi</h4>
               <p>Oran,Hotel Méridien</p>
               <div class="bottom">
+                <h4></h4>
                 <h5>3000 DA</h5>
                 <el-button type="primary" class="button" size="large">
                   Réserve
@@ -228,10 +218,8 @@ const currentDate = ref(new Date());
               <h4>Djam & Khassani</h4>
               <p>Opéra d'Alger</p>
               <div class="bottom">
+                <h5></h5>
                 <h5>1500 DA</h5>
-                <el-button type="primary" class="button" size="large">
-                  Réserve
-                </el-button>
               </div>
             </div>
           </el-card>

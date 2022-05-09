@@ -1,12 +1,6 @@
 <template>
   <!-- deviding screen into two columns: sidebar and content -->
-  <section
-    class="py-8"
-    style="
-      background: linear-gradient(to right top, #84ceeb, #c1c8e4, #8860d0);
-      min-height: 100vh;
-    "
-  >
+  <section class="py-8" style="background: #ffbc80; min-height: 100vh">
     <el-row :gutter="2">
       <el-col :xs="1" :sm="2" :md="4" :lg="6" :xl="8"> </el-col>
       <el-col :xs="22" :sm="20" :md="16" :lg="12" :xl="8">
