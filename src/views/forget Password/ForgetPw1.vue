@@ -10,36 +10,43 @@
     <el-row :gutter="2">
       <el-col :xs="1" :sm="2" :md="4" :lg="6" :xl="8"> </el-col>
       <el-col :xs="22" :sm="20" :md="16" :lg="12" :xl="8">
+        <br />
+        <br />
+        <br />
         <el-card shadow="hover" class="forgotpasswordCard">
-          <h3>Validate your account</h3>
-          <!-- Mot de passe oublié ? -->
-          <br />
-          <p>Please enter the code sended to your email.</p>
-          <!-- Ne vous inquiétez pas! remplissez simplement votre e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.  -->
+          <h3>Validez votre compte</h3>
+          <!-- Validate your account -->
+          <p>Veuillez entrer le code envoyé à votre email.</p>
+          <!-- Please enter the code sended to your email -->
           <br />
           <el-form
             ref="formRef2"
             :model="dynamicValidateForm"
-            label-width="80px"
             :label-position="labelPosition"
           >
             <el-form-item
               label=""
               prop="code"
-              :rules="[{ required: true, message: 'code is required' }]"
+              :rules="[{ required: true, message: 'Le code est requis' }]"
             >
               <el-input
-                style="width: 80%"
                 v-model.number="dynamicValidateForm.code"
                 maxlength="6"
-                placeholder="Please code"
+                placeholder="Veuillez entrer le code"
                 show-word-limit
                 type="text"
               />
             </el-form-item>
-            <el-form-item style="margin: auto">
-              <el-button type="primary" @click="submitForm2(formRef2)">Submit</el-button>
-              <el-button @click="resetForm2(formRef2)">Reset</el-button>
+            <el-form-item>
+              <el-button
+                type="primary"
+                @click="submitForm2(formRef2)"
+                style="margin: auto"
+                >Soumettre</el-button
+              >
+              <el-button @click="resetForm2(formRef2)" style="margin: auto"
+                >Réinitialiser</el-button
+              >
             </el-form-item>
           </el-form>
         </el-card>
@@ -81,7 +88,7 @@ const submitForm2 = (formEl: FormInstance | undefined) => {
         console.log();
       } catch (error) {
         ElNotification({
-          title: "Name of event is empty",
+          title: "Error",
           message: "Code incorrect",
           type: "error",
         });
@@ -103,7 +110,7 @@ const resetForm2 = (formEl: FormInstance | undefined) => {
 .forgotpasswordCard {
   padding: 5%;
   border-radius: 15px;
-  margin-top: 18%;
+  margin: auto;
 }
 @media screen and (max-width: 767px) {
   .forgotpasswordCard {

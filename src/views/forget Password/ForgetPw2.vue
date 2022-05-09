@@ -10,19 +10,20 @@
     <el-row :gutter="2">
       <el-col :xs="1" :sm="2" :md="4" :lg="6" :xl="8"> </el-col>
       <el-col :xs="22" :sm="20" :md="16" :lg="12" :xl="8">
+        <br />
+        <br />
         <el-card shadow="hover" class="forgotpasswordCard">
-          <h3>Reset Password</h3>
-          <!-- Mot de passe oublié ? -->
+          <h3>Réinitialiser Le mot de passe</h3>
+          <!-- Reset Password -->
           <br />
-          <p>Please enter your new password.</p>
-          <!-- Ne vous inquiétez pas! remplissez simplement votre e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.  -->
+          <p>Veuillez entrer votre nouveau mot de passe.</p>
+          <!-- Please enter your new password -->
           <br />
           <el-form
             ref="formRef3"
             :model="inputForm"
             status-icon
             :rules="rules"
-            label-width="120px"
             :label-position="labelPosition"
           >
             <el-form-item label="Password" prop="pass">
@@ -39,11 +40,19 @@
                 type="password"
                 autocomplete="off"
                 show-password
+                style="margin-left: 10px"
               />
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="submitForm3(formRef3)">Submit</el-button>
-              <el-button @click="resetForm3(formRef3)">Reset</el-button>
+              <el-button
+                type="primary"
+                @click="submitForm3(formRef3)"
+                style="margin: auto"
+                >Soumettre</el-button
+              >
+              <el-button @click="resetForm3(formRef3)" style="margin: auto"
+                >Réinitialiser</el-button
+              >
             </el-form-item>
           </el-form>
         </el-card>
@@ -88,7 +97,7 @@ const submitForm3 = (formEl: FormInstance | undefined) => {
         console.log();
       } catch (error) {
         ElNotification({
-          title: "Name of event is empty",
+          title: "Error",
           message: "error in the procces",
           type: "error",
         });
@@ -107,9 +116,9 @@ const resetForm3 = (formEl: FormInstance | undefined) => {
 
 const validatePass = (rule: any, value: any, callback: any) => {
   if (value === "") {
-    callback(new Error("Please input the password"));
+    callback(new Error("Veuillez entrer le mot de passe"));
   } else if (value.length <= 7) {
-    callback(new Error("password must be at least 8 characters "));
+    callback(new Error("Mot de passe doit être d'au moins 8 caractères "));
   } else {
     if (inputForm.checkPass !== "") {
       if (!formRef3.value) return;
@@ -120,9 +129,9 @@ const validatePass = (rule: any, value: any, callback: any) => {
 };
 const validatePass2 = (rule: any, value: any, callback: any) => {
   if (value === "") {
-    callback(new Error("Please input the password again"));
+    callback(new Error("Veuillez saisir à nouveau le mot de passe"));
   } else if (value !== inputForm.pass) {
-    callback(new Error("Two inputs don't match!"));
+    callback(new Error("Deux entrées ne correspondent pas !"));
   } else {
     callback();
   }
@@ -138,7 +147,7 @@ const rules = reactive({
 .forgotpasswordCard {
   padding: 5%;
   border-radius: 15px;
-  margin-top: 18%;
+  margin: auto;
 }
 @media screen and (max-width: 767px) {
   .forgotpasswordCard {
