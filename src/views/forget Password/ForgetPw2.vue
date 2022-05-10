@@ -41,18 +41,20 @@
                 autocomplete="off"
                 show-password
                 style="margin-left: 10px"
-              />
-            </el-form-item>
+              /> </el-form-item
+            ><br />
             <el-form-item>
-              <el-button
-                type="primary"
-                @click="submitForm3(formRef3)"
-                style="margin: auto"
-                >Soumettre</el-button
-              >
-              <el-button @click="resetForm3(formRef3)" style="margin: auto"
-                >Réinitialiser</el-button
-              >
+              <div style="margin: auto">
+                <el-button
+                  type="primary"
+                  @click="submitForm3(formRef3)"
+                  style="margin: auto"
+                  >Soumettre</el-button
+                >&nbsp;
+                <el-button @click="resetForm3(formRef3)" style="margin: auto"
+                  >Réinitialiser</el-button
+                >
+              </div>
             </el-form-item>
           </el-form>
         </el-card>
@@ -145,9 +147,8 @@ const rules = reactive({
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .forgotpasswordCard {
-  padding: 5%;
+  padding: 5% 0;
   border-radius: 15px;
-  margin: auto;
 }
 @media screen and (max-width: 767px) {
   .forgotpasswordCard {

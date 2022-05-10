@@ -25,6 +25,7 @@
           >
             <el-form-item
               prop="email"
+              style="width: 60%; margin: auto"
               :rules="[
                 {
                   required: true,
@@ -43,13 +44,19 @@
                 autocomplete="off"
               />
             </el-form-item>
+            <br />
             <el-form-item>
-              <el-button type="primary" @click="submitForm(formRef)" style="margin: auto"
-                >Submit</el-button
-              >
-              <el-button @click="resetForm(formRef)" style="margin: auto"
-                >Reset</el-button
-              >
+              <div style="margin: auto">
+                <el-button
+                  type="primary"
+                  @click="submitForm(formRef)"
+                  style="margin: auto"
+                  >Submit</el-button
+                >&nbsp;
+                <el-button @click="resetForm(formRef)" style="margin: auto"
+                  >Reset</el-button
+                >
+              </div>
             </el-form-item>
           </el-form>
         </el-card>
@@ -112,7 +119,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .forgotpasswordCard {
-  padding: 5%;
+  padding: 5% 0;
   border-radius: 15px;
   margin: auto;
 }

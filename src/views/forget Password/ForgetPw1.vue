@@ -25,6 +25,7 @@
             :label-position="labelPosition"
           >
             <el-form-item
+              style="width: 60%; margin: auto"
               label=""
               prop="code"
               :rules="[{ required: true, message: 'Le code est requis' }]"
@@ -35,18 +36,20 @@
                 placeholder="Veuillez entrer le code"
                 show-word-limit
                 type="text"
-              />
-            </el-form-item>
+              /> </el-form-item
+            ><br />
             <el-form-item>
-              <el-button
-                type="primary"
-                @click="submitForm2(formRef2)"
-                style="margin: auto"
-                >Soumettre</el-button
-              >
-              <el-button @click="resetForm2(formRef2)" style="margin: auto"
-                >Réinitialiser</el-button
-              >
+              <div style="margin: auto">
+                <el-button
+                  type="primary"
+                  @click="submitForm2(formRef2)"
+                  style="margin: auto"
+                  >Soumettre</el-button
+                >&nbsp;
+                <el-button @click="resetForm2(formRef2)" style="margin: auto"
+                  >Réinitialiser</el-button
+                >
+              </div>
             </el-form-item>
           </el-form>
         </el-card>
@@ -108,7 +111,7 @@ const resetForm2 = (formEl: FormInstance | undefined) => {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .forgotpasswordCard {
-  padding: 5%;
+  padding: 5% 0;
   border-radius: 15px;
   margin: auto;
 }
