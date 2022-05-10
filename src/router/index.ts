@@ -4,6 +4,7 @@ import HomeView from "../views/HomeView.vue";
 import AboutViewVue from "../views/AboutView.vue";
 import LoginViewVue from "@/views/LoginView.vue";
 import NotFound from "../views/NotFound.vue";
+import CodeVerificationView from "../views/CodeVerificationView.vue";
 
 /*
 function CheckLogin(to, from, next) {
@@ -49,12 +50,17 @@ const router = createRouter({
       component: NotFound,
     },
     {
-      path: "/login",
+      path: "/authentification",
       name: "login",
       component: LoginViewVue,
       //beforeEnter: CheckLogin,
     },
-    
+    {
+      path: "/code",
+      name: "code",
+      component: CodeVerificationView,
+      //beforeEnter: CheckLogin,
+    },
   ],
 });
 

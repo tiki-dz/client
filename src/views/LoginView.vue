@@ -31,24 +31,26 @@
                 required
                 show-password
               />
-              <p>Mot de passe oublier?</p>
+              <p id="mob">Mot de passe oublier?</p>
               <button type="submit" class="submit-btn" @click="connexion()">
                 Connexion
               </button>
             </form>
           </el-col>
           <el-col :span="12">
-            <h1  style=" margin-left: -15%;"><b>Bienvenue !</b></h1>
             <img
               src="../assets/logo.png"
-              style="width: 25rem; margin-left: -35%; margin-top: -10%"
+              style="width: 25rem; margin-left: -27%; margin-top: -10%"
             />
+            <h1 style="margin-left: -11%; margin-top: -5%">
+              <b>Bienvenue !</b>
+            </h1>
 
             <a
               class="btn btn-google"
               href="#"
               title="Google Play"
-              style="margin-left: 10%; margin-bottom: 1%"
+              style="margin-left: -2%; margin-bottom: -35%"
               >Google Play</a
             >
           </el-col>
@@ -63,8 +65,9 @@
                 required
                 class="input-field"
               ></el-input>
+              <p id="j1"></p>
             </el-col>
-                        <el-col :span="2"></el-col>
+            <el-col :span="2"></el-col>
 
             <el-col :span="10">
               <el-input
@@ -73,24 +76,26 @@
                 required
                 class="input-field"
               ></el-input>
+              <p id="j2"></p>
             </el-col>
           </el-row>
-
-        
 
           <el-row>
             <el-col :span="10"
               ><el-input
+                required
                 id="phoneNumber"
                 v-model="ruleForm.phoneNumber"
                 placeholder="numero de telephone"
                 class="input-field"
               ></el-input>
+              <p id="j3"></p>
             </el-col>
-                        <el-col :span="2"></el-col>
+            <el-col :span="2"></el-col>
 
             <el-col :span="10">
               <el-date-picker
+                required
                 id="birthDate"
                 v-model="ruleForm.birthDate"
                 type="date"
@@ -98,12 +103,15 @@
                 value-format="YYYY/MM/DD"
                 class="input-field"
               >
-              </el-date-picker
-            ></el-col>
+              </el-date-picker>
+              <p id="j4"></p>
+              
+            </el-col>
           </el-row>
           <el-row>
             <el-col :span="10">
               <el-select
+                required
                 id="exampleFormControlSelect1"
                 placeholder="sexe"
                 v-model="ruleForm.sexe"
@@ -116,41 +124,52 @@
                   :value="item.value"
                 ></el-option>
               </el-select>
+              <p id="j5"></p>
             </el-col>
-                        <el-col :span="2"></el-col>
+            <el-col :span="2"></el-col>
 
             <el-col :span="10">
               <el-input
                 id="city"
                 v-model="ruleForm.city"
                 placeholder="ville"
-                                class="input-field"
-
+                required
+                class="input-field"
               ></el-input>
+              <p id="j6"></p>
             </el-col>
           </el-row>
-            <el-row>
+          <el-row>
             <el-col :span="10">
               <el-input
+                required
                 v-model="ruleForm.email"
                 placeholder="email"
                 class="input-field"
               ></el-input>
+              <p id="j7"></p>
             </el-col>
-                        <el-col :span="2"></el-col>
+            <el-col :span="2"></el-col>
 
             <el-col span="10">
               <el-input
+                required
                 id="password"
                 placeholder="mot de passe"
                 v-model="ruleForm.password"
                 show-password
                 class="input-field"
               ></el-input>
+              <p id="j8"></p>
             </el-col>
           </el-row>
 
-          <button type="submit" class="submit-btn" @click="signup()" style="  margin-top: 5%;">
+          <button
+            type="submit"
+            class="submit-btn"
+            @click="checkForm()"
+            style="margin-top: 5%"
+          >
             S'inscrire
           </button>
         </form>
@@ -182,6 +201,7 @@ export default {
         phoneNumber: "",
         sexe: "",
         city: "",
+        errors: [],
       },
       sexeopt: [
         {
@@ -265,6 +285,85 @@ export default {
         });
       }
     },
+    checkForm() {
+      
+      let t1, t2, t3, t4, t5, t6, t7, t8;
+
+      if (this.ruleForm.firstName == "") {
+        t1 = "Veuillez entrer le nom !";
+        document.getElementById("j1").innerHTML = t1;
+      } else {
+        t1 = "";
+        document.getElementById("j1").innerHTML = t1;
+      }
+
+
+      if (this.ruleForm.lastName == "") {
+        t2 = "Veuillez entrer le prénom !";
+        document.getElementById("j2").innerHTML = t2;
+      } else {
+        t2 = "";
+        document.getElementById("j2").innerHTML = t2;
+      }
+
+       if (this.ruleForm.phoneNumber == "") {
+        t3 = "veuillez saisire le numero de telephone  !";
+        document.getElementById("j3").innerHTML = t3;
+      } else if (this.ruleForm.phoneNumber > 10) {
+        t3 = "le numero de telephone ne doit pas etre plus de 14 chiffres !";
+        document.getElementById("j3").innerHTML = t3;
+      } else {
+        t3 = "";
+        document.getElementById("j3").innerHTML = t3;
+      }
+
+
+
+      if (
+        
+        this.ruleForm.birthDate == "") {
+        t4 = "Veuillez selectionner la date !";
+        document.getElementById("j4").innerHTML = t4;
+      } else {
+        t4 = "";
+        document.getElementById("j4").innerHTML = t4;
+      }
+
+
+      if (this.ruleForm.city  == "") {
+        t6 = "Veuillez saisire le lieu de naissance !";
+        document.getElementById("j6").innerHTML = t6;
+      } else {
+        t6 = "";
+        document.getElementById("j6").innerHTML = t6;
+      }
+
+
+      if (this.ruleForm.sexe == "") {
+        t5 = "Veuillez entrer le prénom !";
+        document.getElementById("j5").innerHTML = t5;
+      } else {
+        t5 = "";
+        document.getElementById("j5").innerHTML = t5;
+      }
+
+     
+
+
+      if (this.ruleForm.email == "") {
+        t7 = "veuillez saisire l'adresse mail  !";
+        document.getElementById("j7").innerHTML = t7;
+      } else if (this.ruleForm.email.indexOf("@") == -1) {
+        t7 = " l'adresse mail contient @  !";
+        document.getElementById("j7").innerHTML = t7;
+      } else if (this.ruleForm.email.indexOf(".") == -1) {
+        t7 = " l'adresse mail contient un point .  !";
+        document.getElementById("j7").innerHTML = t7;
+      } else {
+        t7 = "";
+        document.getElementById("j7").innerHTML = t7;
+      }
+    },
 
     register() {
       document.getElementById("login").style.left = "-290px";
@@ -272,7 +371,7 @@ export default {
       document.getElementById("btn").style.left = "110px";
     },
     login() {
-      document.getElementById("login").style.left = "50px";
+      document.getElementById("login").style.left = "12%";
       document.getElementById("register").style.left = "1000px";
       document.getElementById("btn").style.left = "0px";
     },
@@ -298,7 +397,7 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   box-sizing: border-box;
 }
 .full-page {
-  background:  #fcecdd;
+  background: #fcecdd;
   min-height: 100vh;
   width: 100%;
   background-position: center;
@@ -371,7 +470,6 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   border-left: 0;
   border-top: 0;
   border-right: 0;
-  border-bottom: 1px solid rgb(255, 255, 255);
   outline: none;
   background: transparent;
 }
@@ -402,6 +500,7 @@ input {
 #register {
   left: 420px;
   margin: 4px, 4px;
+  margin-top: -4%;
   padding: 4px;
   width: 450px;
   height: 500px;
@@ -410,19 +509,6 @@ input {
   text-align: justify;
 }
 
-.circle1,
-.circle2,
-.circle3,
-.circle4 {
-  background: linear-gradient(
-    to right bottom,
-    rgba(255, 255, 255, 0.1),
-    rgba(255, 255, 255, 0.2)
-  );
-  height: 10rem;
-  width: 10rem;
-  position: absolute;
-}
 .circle1 {
   height: 20rem;
   width: 20rem;
@@ -432,6 +518,7 @@ input {
   border-radius: 50%;
   animation-name: example;
   animation-duration: 60s;
+  position: absolute;
 }
 @keyframes example {
   0% {
@@ -460,34 +547,11 @@ input {
     top: 0px;
   }
 }
-.circle2 {
-  bottom: 8%;
-  right: 30%;
-  z-index: 2;
-  border-radius: 10%;
-}
-.circle3 {
-  height: 15rem;
-  width: 15rem;
-  top: 5%;
-  left: 22%;
-  z-index: 2;
-  border-radius: 10%;
-}
-.circle4 {
-  height: 50rem;
-  width: 50rem;
-  top: 3%;
-  left: -45%;
-  border-radius: 50%;
 
-  z-index: 2;
-}
-p {
+#mob {
   color: rgba(255, 255, 255, 0.783);
   margin-left: 50%;
   margin-top: 5%;
-  font-size: small;
 }
 
 @font-face {
@@ -578,5 +642,14 @@ a.btn-google {
 h1 {
   color: white;
   font-size: 50px;
+}
+p{
+  width: 200px;
+  color: red;
+  margin-top: -4%;
+  margin-bottom: -4%;
+  margin-left: 5%;
+    font-size: small;
+
 }
 </style>
