@@ -13,7 +13,7 @@
         </div>
         <el-row id="login">
           <el-col :span="12">
-            <form class="input-group-login">
+            <form class="input-group-login" @submit.prevent>
               <el-input
                 type="email"
                 class="input-field"
@@ -56,13 +56,13 @@
           </el-col>
         </el-row>
 
-        <form id="register" class="input-group-register">
+        <form id="register" class="input-group-register" @submit.prevent>
           <el-row>
             <el-col :span="10">
               <el-input
                 v-model="ruleForm.firstName"
                 placeholder="Prenom"
-                required
+                
                 class="input-field"
               ></el-input>
               <p id="j1"></p>
@@ -73,7 +73,6 @@
               <el-input
                 v-model="ruleForm.lastName"
                 placeholder="Nom"
-                required
                 class="input-field"
               ></el-input>
               <p id="j2"></p>
@@ -83,7 +82,7 @@
           <el-row>
             <el-col :span="10"
               ><el-input
-                required
+                
                 id="phoneNumber"
                 v-model="ruleForm.phoneNumber"
                 placeholder="numero de telephone"
@@ -95,7 +94,7 @@
 
             <el-col :span="10">
               <el-date-picker
-                required
+                style="margin-top:9%;width: 180px;"
                 id="birthDate"
                 v-model="ruleForm.birthDate"
                 type="date"
@@ -104,21 +103,21 @@
                 class="input-field"
               >
               </el-date-picker>
-              <p id="j4"></p>
+              <p id="j4" style="margin-top:5%;"></p>
               
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="10">
               <el-select
-                required
+                
                 id="exampleFormControlSelect1"
                 placeholder="sexe"
                 v-model="ruleForm.sexe"
                 class="input-field"
               >
                 <el-option
-                  v-for="item in sexeopt"
+                  v-for="item in sexe"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
@@ -133,7 +132,7 @@
                 id="city"
                 v-model="ruleForm.city"
                 placeholder="ville"
-                required
+                
                 class="input-field"
               ></el-input>
               <p id="j6"></p>
@@ -142,7 +141,7 @@
           <el-row>
             <el-col :span="10">
               <el-input
-                required
+                
                 v-model="ruleForm.email"
                 placeholder="email"
                 class="input-field"
@@ -153,7 +152,7 @@
 
             <el-col span="10">
               <el-input
-                required
+                
                 id="password"
                 placeholder="mot de passe"
                 v-model="ruleForm.password"
@@ -167,7 +166,7 @@
           <button
             type="submit"
             class="submit-btn"
-            @click="checkForm()"
+            @click="signup()"
             style="margin-top: 5%"
           >
             S'inscrire
@@ -191,25 +190,23 @@ export default {
   data() {
     return {
       ruleForm: {
-        search: "",
-        firstName: "",
+                email: "",
+                        phoneNumber: "",
+
+         firstName: "",
         lastName: "",
         password: "",
-        password2: "",
-        email: "",
         birthDate: "",
-        phoneNumber: "",
         sexe: "",
         city: "",
-        errors: [],
       },
-      sexeopt: [
+      sexe: [
         {
-          value: 0,
+          value: "FEMME",
           label: "FEMME",
         },
         {
-          value: 1,
+          value: "HOMME",
           label: "HOMME",
         },
       ],
@@ -222,8 +219,7 @@ export default {
 
   methods: {
     async signup() {
-      try {
-        if (this.ruleForm.password == this.ruleForm.password2) {
+      try {this.checkForm();
           const response = await authService.SignupClient({
             firstName: this.ruleForm.firstName,
             lastName: this.ruleForm.lastName,
@@ -234,21 +230,22 @@ export default {
             city: this.ruleForm.city,
             phoneNumber: this.ruleForm.phoneNumber,
           });
+          console.log("suuuucccceesss")
           ElNotification({
             title: "Succès",
             message: "Utilisateur créé avec succès ",
             type: "success",
           });
           console.log(response.data);
-        } else {
-          this.error = "problem in confirmation of the git fepassword";
-        }
+        
       } catch (error) {
         ElNotification({
           title: "Echec",
           message: "Impossible de créer l'utilisateur ",
           type: "error",
         });
+                  console.log("faaiiillllll")
+
         console.log(error);
       }
     },
@@ -260,15 +257,18 @@ export default {
         });
 
         console.log(account.data);
+         console.log("here");
+        console.log(account.data.success);
         if (account.data.success == false) {
           ElNotification({
             title: "Error",
             message: "Error to sign in :" + account.data.message,
             type: "error",
           });
+          console.log("connexioon");
         } else {
           let x = account.data.data.token;
-          let user = account.data.data.data.User;
+          let user = account.data.data.User;
           localStorage.setItem("LoggedUser", x);
 
           ElNotification({
@@ -287,7 +287,7 @@ export default {
     },
     checkForm() {
       
-      let t1, t2, t3, t4, t5, t6, t7, t8;
+      let t1, t2, t3, t4, t5, t6, t7;
 
       if (this.ruleForm.firstName == "") {
         t1 = "Veuillez entrer le nom !";
@@ -309,8 +309,8 @@ export default {
        if (this.ruleForm.phoneNumber == "") {
         t3 = "veuillez saisire le numero de telephone  !";
         document.getElementById("j3").innerHTML = t3;
-      } else if (this.ruleForm.phoneNumber > 10) {
-        t3 = "le numero de telephone ne doit pas etre plus de 14 chiffres !";
+      } else if (this.ruleForm.phoneNumber <= 10) {
+        t3 = "le numero de telephone ne doit pas etre plus de 10 chiffres !";
         document.getElementById("j3").innerHTML = t3;
       } else {
         t3 = "";
@@ -331,7 +331,7 @@ export default {
 
 
       if (this.ruleForm.city  == "") {
-        t6 = "Veuillez saisire le lieu de naissance !";
+        t6 = "Veuillez saisire votre ville !";
         document.getElementById("j6").innerHTML = t6;
       } else {
         t6 = "";
@@ -340,7 +340,7 @@ export default {
 
 
       if (this.ruleForm.sexe == "") {
-        t5 = "Veuillez entrer le prénom !";
+        t5 = "Veuillez entrer le sexe !";
         document.getElementById("j5").innerHTML = t5;
       } else {
         t5 = "";
@@ -363,6 +363,7 @@ export default {
         t7 = "";
         document.getElementById("j7").innerHTML = t7;
       }
+
     },
 
     register() {
@@ -517,7 +518,7 @@ input {
   z-index: 2;
   border-radius: 50%;
   animation-name: example;
-  animation-duration: 60s;
+  animation-duration: 160s;
   position: absolute;
 }
 @keyframes example {
@@ -526,26 +527,57 @@ input {
     left: 0px;
     top: 0px;
   }
-  25% {
+  10% {
     background-color: rgb(255, 200, 0);
     left: 200px;
     top: 10px;
   }
-  50% {
+  20% {
+    background-color: rgb(171, 140, 39);
+    left: 200px;
+    top: 15px;
+  }
+  30% {
     background-color: rgb(255, 132, 0);
     left: 200px;
     top: 200px;
   }
-  75% {
-    background-color: rgb(214, 193, 73);
+  40% {
+    background-color: rgb(214, 132, 73);
     left: 0px;
     top: 200px;
   }
-  100% {
+  50% {
     background-color: rgb(255, 191, 0);
     left: 0px;
     top: 0px;
   }
+  60% {
+    background-color: rgb(192, 147, 12);
+    left: 0px;
+    top: 0px;
+  }
+  70% {
+    background-color: rgb(255, 200, 0);
+    left: 200px;
+    top: 10px;
+  }
+  80% {
+    background-color: rgb(171, 140, 39);
+    left: 200px;
+    top: 15px;
+  }
+  90% {
+    background-color: rgb(255, 132, 0);
+    left: 200px;
+    top: 200px;
+  }
+  100% {
+    background-color: rgb(214, 153, 73);
+    left: 0px;
+    top: 200px;
+  }
+  
 }
 
 #mob {

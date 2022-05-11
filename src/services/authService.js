@@ -7,7 +7,8 @@ export default {
     return Api().post("/client/signup", credantials);
   },
   VerifyCode(credantials) {
-    return Api().post("/client/verifyCode", credantials , {
+    let email=credantials;
+    return Api().post("/client/verifyCode", credantials ,email, {
       headers: {
         'x-access-token': localStorage.getItem("LoggedUser")}
   })},
