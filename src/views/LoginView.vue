@@ -63,7 +63,7 @@
               <el-input
                 v-model="ruleForm.firstName"
                 placeholder="Prenom"
-                required
+                
                 class="input-field"
               ></el-input>
               <p id="j1"></p>
@@ -74,7 +74,7 @@
               <el-input
                 v-model="ruleForm.lastName"
                 placeholder="Nom"
-                required
+                
                 class="input-field"
               ></el-input>
               <p id="j2"></p>
@@ -84,7 +84,7 @@
           <el-row>
             <el-col :span="10"
               ><el-input
-                required
+                
                 id="phoneNumber"
                 v-model="ruleForm.phoneNumber"
                 placeholder="numero de telephone"
@@ -96,7 +96,7 @@
 
             <el-col :span="10">
               <el-date-picker
-                required
+                style="margin-top:9%;width: 180px;"
                 id="birthDate"
                 v-model="ruleForm.birthDate"
                 type="date"
@@ -105,14 +105,14 @@
                 class="input-field"
               >
               </el-date-picker>
-              <p id="j4"></p>
+              <p id="j4" style="margin-top:5%;"></p>
               
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="10">
               <el-select
-                required
+                
                 id="exampleFormControlSelect1"
                 placeholder="sexe"
                 v-model="ruleForm.sexe"
@@ -134,7 +134,7 @@
                 id="city"
                 v-model="ruleForm.city"
                 placeholder="ville"
-                required
+                
                 class="input-field"
               ></el-input>
               <p id="j6"></p>
@@ -143,7 +143,7 @@
           <el-row>
             <el-col :span="10">
               <el-input
-                required
+                
                 v-model="ruleForm.email"
                 placeholder="email"
                 class="input-field"
@@ -154,7 +154,7 @@
 
             <el-col span="10">
               <el-input
-                required
+                
                 id="password"
                 placeholder="mot de passe"
                 v-model="ruleForm.password"
@@ -332,7 +332,7 @@ export default {
 
 
       if (this.ruleForm.city  == "") {
-        t6 = "Veuillez saisire le lieu de naissance !";
+        t6 = "Veuillez saisire votre ville !";
         document.getElementById("j6").innerHTML = t6;
       } else {
         t6 = "";
@@ -341,7 +341,7 @@ export default {
 
 
       if (this.ruleForm.sexe == "") {
-        t5 = "Veuillez entrer le prénom !";
+        t5 = "Veuillez sélectionnez votre sexe !";
         document.getElementById("j5").innerHTML = t5;
       } else {
         t5 = "";
@@ -403,6 +403,7 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   width: 100%;
   background-position: center;
   background-size: cover;
+
   
 }
 /*
@@ -519,35 +520,66 @@ input {
   z-index: 2;
   border-radius: 50%;
   animation-name: example;
-  animation-duration: 60s;
+  animation-duration: 160s;
   position: absolute;
 }
 @keyframes example {
   0% {
     background-color: rgb(192, 147, 12);
     left: 0px;
-    top: 0px;
+    top: 50px;
   }
-  25% {
+  10% {
     background-color: rgb(255, 200, 0);
     left: 200px;
-    top: 10px;
+    top: 60px;
   }
-  50% {
+  20% {
+    background-color: rgb(171, 140, 39);
+    left: 200px;
+    top: 65px;
+  }
+  30% {
     background-color: rgb(255, 132, 0);
     left: 200px;
     top: 200px;
   }
-  75% {
-    background-color: rgb(214, 193, 73);
+  40% {
+    background-color: rgb(214, 132, 73);
     left: 0px;
     top: 200px;
   }
-  100% {
+  50% {
     background-color: rgb(255, 191, 0);
     left: 0px;
-    top: 0px;
+    top: 50px;
   }
+  60% {
+    background-color: rgb(192, 147, 12);
+    left: 0px;
+    top: 60px;
+  }
+  70% {
+    background-color: rgb(255, 200, 0);
+    left: 200px;
+    top: 70px;
+  }
+  80% {
+    background-color: rgb(171, 140, 39);
+    left: 200px;
+    top: 75px;
+  }
+  90% {
+    background-color: rgb(255, 132, 0);
+    left: 200px;
+    top: 200px;
+  }
+  100% {
+    background-color: rgb(214, 153, 73);
+    left: 0px;
+    top: 200px;
+  }
+  
 }
 
 #mob {
