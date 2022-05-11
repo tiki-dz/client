@@ -15,7 +15,7 @@ module.exports = {
   overrides: [
     {
       files: [
-        "**/__tests__/*.spec.{js,ts,jsx,tsx}",
+        "**/__tests__/*.spec.{js,ts,jsx,tsx,vue}",
         "cypress/integration/**.spec.{js,ts,jsx,tsx}",
       ],
       extends: ["plugin:cypress/recommended"],
