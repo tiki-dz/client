@@ -31,7 +31,7 @@
                 required
                 show-password
               />
-              <p id="mob">Mot de passe oublier?</p>
+        <router-link> <p id="mob">Mot de passe oublier?</p></router-link>     
               <button type="submit" class="submit-btn" @click="connexion()">
                 Connexion
               </button>
