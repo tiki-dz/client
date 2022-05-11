@@ -402,7 +402,7 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   width: 100%;
   background-position: center;
   background-size: cover;
-  position: absolute;
+  
 }
 /*
 #login-form{

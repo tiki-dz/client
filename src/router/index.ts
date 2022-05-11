@@ -51,6 +51,12 @@ const router = createRouter({
       props: true 
     },
     {
+      path: "/authentification",
+      name: "login",
+      component: LoginViewVue,
+      //beforeEnter: CheckLogin,
+    },
+    {
       path: "/about",
       name: "about",
       // route level code-splitting
@@ -63,12 +69,7 @@ const router = createRouter({
       name: "notFound",
       component: NotFound,
     },
-    {
-      path: "/authentification",
-      name: "login",
-      component: LoginViewVue,
-      //beforeEnter: CheckLogin,
-    },
+   
     {
       path: "/code",
       name: "code",
