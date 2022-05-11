@@ -1,6 +1,7 @@
 <template>
   <div class="full-page">
     <div id="login-form" class="login-page">
+    <br/><br/><br/><br/><br/><br/><br/>
       <div class="form-box">
         <div class="button-box">
           <div id="btn"></div>
@@ -413,13 +414,14 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   width: 880px;
   height: 480px;
   position: relative;
-  margin: 10% auto;
+  margin:  auto;
   background: #f9cea5dc;
   padding: 10px;
   overflow: hidden;
   border-radius: 2rem;
   z-index: 3;
 }
+
 
 .button-box {
   width: 220px;
