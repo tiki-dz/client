@@ -32,7 +32,7 @@
                 required
                 show-password
               />
-              <p id="mob">Mot de passe oublier?</p>
+              <a href="http://127.0.0.1:8090/forgetpw" id="mob" class="forgetpw" >Mot de passe oublier?</a>
               <button type="submit" class="submit-btn" @click="connexion()">
                 Connexion
               </button>
@@ -441,6 +441,7 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   color: white;
   font-size: medium;
   margin-left: 5%;
+  width:45%
 }
 #btn {
   top: 0;
@@ -527,17 +528,17 @@ input {
   0% {
     background-color: rgb(192, 147, 12);
     left: 0px;
-    top: 50px;
+    top: 60px;
   }
   10% {
     background-color: rgb(255, 200, 0);
     left: 200px;
-    top: 60px;
+    top: 70px;
   }
   20% {
     background-color: rgb(171, 140, 39);
     left: 200px;
-    top: 65px;
+    top: 75px;
   }
   30% {
     background-color: rgb(255, 132, 0);
@@ -552,22 +553,22 @@ input {
   50% {
     background-color: rgb(255, 191, 0);
     left: 0px;
-    top: 50px;
+    top: 60px;
   }
   60% {
     background-color: rgb(192, 147, 12);
     left: 0px;
-    top: 60px;
+    top: 70px;
   }
   70% {
     background-color: rgb(255, 200, 0);
     left: 200px;
-    top: 70px;
+    top: 75px;
   }
   80% {
     background-color: rgb(171, 140, 39);
     left: 200px;
-    top: 75px;
+    top: 80px;
   }
   90% {
     background-color: rgb(255, 132, 0);
@@ -584,7 +585,7 @@ input {
 
 #mob {
   color: rgba(255, 255, 255, 0.783);
-  margin-left: 50%;
+  margin-left: 42%;
   margin-top: 5%;
 }
 
@@ -677,13 +678,12 @@ h1 {
   color: white;
   font-size: 50px;
 }
-p{
-  width: 200px;
+.forgetpw {
+  width: 300px;
   color: red;
-  margin-top: -4%;
-  margin-bottom: -4%;
-  margin-left: 5%;
+
     font-size: small;
 
 }
+
 </style>
