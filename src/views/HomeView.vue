@@ -89,11 +89,20 @@ export default {
             :body-style="{ padding: '0px' }"
             style="border-radius: 10px"
           >
+          
+            <el-tag v-if="event.SubCategories.length > 0 && event.SubCategories[0].Category.name === 'SPORT'" round :key="event.SubCategories[0].Category.name" class="mx-1 category-tag" effect="dark" style="background-color:black;border-color: black;" > {{event.SubCategories[0].Category.name}} </el-tag>
+            <el-tag v-else-if="(event.SubCategories.length > 0) && (event.SubCategories[0].Category.name === 'Cinéma')  " round :key="event.SubCategories[0].Category.name" class="mx-1 category-tag" effect="dark"  > {{event.SubCategories[0].Category.name}} </el-tag>
+            <el-tag v-else-if="(event.SubCategories.length > 0) && (event.SubCategories[0].Category.name === 'Théâtre')  " round :key="event.SubCategories[0].Category.name" class="mx-1 category-tag" effect="dark" style="background-color:blue; border-color: blue;" > {{event.SubCategories[0].Category.name}} </el-tag>
+            <!-- <el-tag v-if="(event.SubCategories.length > 0) and (event.SubCategories[0].Category.name == "SPORT")  " round :key="event.SubCategories[0].Category.name" class="mx-1 category-tag" effect="dark" style="background-color:black;" > {{event.SubCategories[0].Category.name}} </el-tag>
+            <el-tag v-if="(event.SubCategories.length > 0) and (event.SubCategories[0].Category.name == "SPORT")  " round :key="event.SubCategories[0].Category.name" class="mx-1 category-tag" effect="dark" style="background-color:black;" > {{event.SubCategories[0].Category.name}} </el-tag> -->
             <img
+              v-if="event.eventImage"
               :src="event.eventImage"
               class="image"
               style="width: 100%; height: 250px; object-fit: cover"
             />
+            
+            
             <div style="padding: 14px" padding="10px">
               <h4 v-if="event.name.length < 20">{{ event.name }}</h4>
               <h4 v-else>{{ event.name.substring(0, 19) }} ..</h4>
@@ -103,7 +112,7 @@ export default {
               />
               <time class="time">{{ event.startDate.split("T")[0] }} &nbsp; 10:00</time
               ><br />
-
+              
               <p>
                 <img
                   src="../assets/icons/adress.png"
@@ -202,5 +211,10 @@ h5 {
 }
 .test {
   background: #f4f4f4;
+}
+.category-tag{
+  position:absolute;
+  top:20px;
+  right:20px;
 }
 </style>

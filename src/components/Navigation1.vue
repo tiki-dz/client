@@ -15,8 +15,8 @@
                     <div class="main-menu f-right d-none d-lg-block">
                         <nav>
                             <ul id="navigation">    
-                                <li class="active"><a href="#home"> Home</a></li>
-                                <li><a href="#client">espace client</a></li>
+                                <li class="active"><a href="http://127.0.0.1:8090/"> Home</a></li>
+                                <li><a href="http://127.0.0.1:8090/authentification">espace client</a></li>
                                 <li><a href="#partenaire">espace partenaire</a></li>
                                 <li><a href="#panier">panier</a></li>
                             </ul>
