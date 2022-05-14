@@ -32,7 +32,6 @@
                 required
                 show-password
               />
-              <p id="mob">Mot de passe oublier?</p>
               <a href="http://127.0.0.1:8090/forgetpw" id="mob" class="forgetpw" >Mot de passe oublier?</a>
               <button type="submit" class="submit-btn" @click="connexion()">
                 Connexion
@@ -66,7 +65,7 @@
                 placeholder="Prenom"
                 
                 class="input-field"
-              ></el-input>
+              />
               <p id="j1"></p>
             </el-col>
             <el-col :span="2"></el-col>
@@ -77,7 +76,6 @@
                 placeholder="Nom"
                 
                 class="input-field"
-              ></el-input>
               />
               <p id="j2"></p>
             </el-col>
@@ -91,7 +89,6 @@
                 v-model="ruleForm.phoneNumber"
                 placeholder="numero de telephone"
                 class="input-field"
-              ></el-input>
               />
               <p id="j3"></p>
             </el-col>
@@ -140,7 +137,7 @@
                 
                 class="input-field"
               ></el-input>
-              />
+          
               <p id="j6"></p>
             </el-col>
           </el-row>
@@ -151,7 +148,6 @@
                 v-model="ruleForm.email"
                 placeholder="email"
                 class="input-field"
-              ></el-input>
               />
               <p id="j7"></p>
             </el-col>
@@ -165,7 +161,6 @@
                 v-model="ruleForm.password"
                 show-password
                 class="input-field"
-              ></el-input>
               />
                <el-input
                 
@@ -183,10 +178,10 @@
           <button
             type="submit"
             class="submit-btn"
-            @click="checkForm()"
+           
             style="margin-top: 5%"
             @click="signup()"
-            style="margin-top: 1%"
+           
           >
             S'inscrire
           </button>
@@ -240,7 +235,7 @@ export default {
 
   methods: {
     async signup() {
-      try {
+    
       
       try {this.checkForm();
         if (this.ruleForm.password == this.ruleForm.password2) {
@@ -300,14 +295,14 @@ export default {
       } catch (error) {
         ElNotification({
           title: "Erreur de connexion",
-          message: " Veuillez réessayer ",
+          message: " voutre compte peut etre desactiver ou n existe pas ",
           type: "warning",
         });
       }
     },
     checkForm() {
       
-      let t1, t2, t3, t4, t5, t6, t7, t8;
+      let t1, t2, t3, t4, t5, t6, t7;
 
       if (this.ruleForm.firstName == "") {
         t1 = "Veuillez entrer le nom !";
@@ -703,7 +698,8 @@ h1 {
   font-size: 50px;
 }
 p{
-  width: 200px;
+  width: 200px;}
+
 .forgetpw {
   width: 300px;
   color: red;
