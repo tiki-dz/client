@@ -9,8 +9,10 @@ export default {
   VerifyCode(credantials) {
     return Api().post("/client/verifyCode", credantials , {
       headers: {
-        'x-access-token': localStorage.getItem("LoggedUser")}
-  })},
+        "x-access-token": localStorage.getItem("LoggedUser"),
+      },
+    });
+  },
   Resendcode(credantials) {
     return Api().post("/client/resendVerfication", credantials);
   },
