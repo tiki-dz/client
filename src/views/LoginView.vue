@@ -1,6 +1,7 @@
 <template>
   <div class="full-page">
     <div id="login-form" class="login-page">
+    <br/><br/><br/><br/><br/><br/><br/>
       <div class="form-box">
         <div class="button-box">
           <div id="btn"></div>
@@ -32,6 +33,7 @@
                 show-password
               />
               <p id="mob">Mot de passe oublier?</p>
+              <a href="http://127.0.0.1:8090/forgetpw" id="mob" class="forgetpw" >Mot de passe oublier?</a>
               <button type="submit" class="submit-btn" @click="connexion()">
                 Connexion
               </button>
@@ -76,6 +78,7 @@
                 
                 class="input-field"
               ></el-input>
+              />
               <p id="j2"></p>
             </el-col>
           </el-row>
@@ -89,6 +92,7 @@
                 placeholder="numero de telephone"
                 class="input-field"
               ></el-input>
+              />
               <p id="j3"></p>
             </el-col>
             <el-col :span="2"></el-col>
@@ -136,6 +140,7 @@
                 
                 class="input-field"
               ></el-input>
+              />
               <p id="j6"></p>
             </el-col>
           </el-row>
@@ -147,6 +152,7 @@
                 placeholder="email"
                 class="input-field"
               ></el-input>
+              />
               <p id="j7"></p>
             </el-col>
             <el-col :span="2"></el-col>
@@ -160,6 +166,16 @@
                 show-password
                 class="input-field"
               ></el-input>
+              />
+               <el-input
+                
+                id="password"
+                placeholder="mot de passe2"
+                v-model="ruleForm.password2"
+                show-password
+                class="input-field"
+                style="margin-top:1%;"
+              />
               <p id="j8"></p>
             </el-col>
           </el-row>
@@ -169,6 +185,8 @@
             class="submit-btn"
             @click="checkForm()"
             style="margin-top: 5%"
+            @click="signup()"
+            style="margin-top: 1%"
           >
             S'inscrire
           </button>
@@ -223,6 +241,8 @@ export default {
   methods: {
     async signup() {
       try {
+      
+      try {this.checkForm();
         if (this.ruleForm.password == this.ruleForm.password2) {
           const response = await authService.SignupClient({
             firstName: this.ruleForm.firstName,
@@ -414,7 +434,7 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   width: 880px;
   height: 480px;
   position: relative;
-  margin: 10% auto;
+  margin:  auto;
   background: #f9cea5dc;
   padding: 10px;
   overflow: hidden;
@@ -423,6 +443,7 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   position: absolute;
   margin-left: 20%;
 }
+
 
 .button-box {
   width: 220px;
@@ -588,6 +609,7 @@ input {
 #mob {
   color: rgba(255, 255, 255, 0.783);
   margin-left: 50%;
+  margin-left: 42%;
   margin-top: 5%;
 }
 
@@ -682,11 +704,15 @@ h1 {
 }
 p{
   width: 200px;
+.forgetpw {
+  width: 300px;
   color: red;
   margin-top: -4%;
   margin-bottom: -4%;
   margin-left: 5%;
+
     font-size: small;
 
 }
+
 </style>
