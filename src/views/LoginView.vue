@@ -14,7 +14,7 @@
         </div>
         <el-row id="login">
           <el-col :span="12">
-            <form class="input-group-login">
+            <form class="input-group-login" @submit.prevent>
               <el-input
                 type="email"
                 class="input-field"
@@ -57,7 +57,7 @@
           </el-col>
         </el-row>
 
-        <form id="register" class="input-group-register">
+        <form id="register" class="input-group-register" @submit.prevent>
           <el-row>
             <el-col :span="10">
               <el-input
@@ -162,15 +162,7 @@
                 show-password
                 class="input-field"
               />
-               <el-input
-                
-                id="password"
-                placeholder="mot de passe2"
-                v-model="ruleForm.password2"
-                show-password
-                class="input-field"
-                style="margin-top:1%;"
-              />
+               
               <p id="j8"></p>
             </el-col>
           </el-row>
@@ -238,7 +230,7 @@ export default {
     
       
       try {this.checkForm();
-        if (this.ruleForm.password == this.ruleForm.password2) {
+       
           const response = await authService.SignupClient({
             firstName: this.ruleForm.firstName,
             lastName: this.ruleForm.lastName,
@@ -249,15 +241,14 @@ export default {
             city: this.ruleForm.city,
             phoneNumber: this.ruleForm.phoneNumber,
           });
+          console.log("hereeee");
           ElNotification({
             title: "Succès",
             message: "Utilisateur créé avec succès ",
             type: "success",
           });
           console.log(response.data);
-        } else {
-          this.error = "problem in confirmation of the git fepassword";
-        }
+       
       } catch (error) {
         ElNotification({
           title: "Echec",
@@ -265,6 +256,8 @@ export default {
           type: "error",
         });
         console.log(error);
+                 console.log("here");
+
       }
     },
     async connexion() {
@@ -273,19 +266,19 @@ export default {
           email: this.form.email.toLowerCase(),
           password: this.form.password,
         });
-
         console.log(account.data);
+        console.log(account.data.success);
         if (account.data.success == false) {
           ElNotification({
             title: "Error",
             message: "Error to sign in :" + account.data.message,
             type: "error",
           });
+          console.log("connexioon");
         } else {
           let x = account.data.data.token;
-          let user = account.data.data.data.User;
+          let user = account.data.data.User;
           localStorage.setItem("LoggedUser", x);
-
           ElNotification({
             title: "Success",
             message: "This is a success message",
@@ -295,7 +288,7 @@ export default {
       } catch (error) {
         ElNotification({
           title: "Erreur de connexion",
-          message: " voutre compte peut etre desactiver ou n existe pas ",
+          message: " Votre compte peut etre desactiver ou n existe pas ",
           type: "warning",
         });
       }
@@ -324,8 +317,8 @@ export default {
        if (this.ruleForm.phoneNumber == "") {
         t3 = "veuillez saisire le numero de telephone  !";
         document.getElementById("j3").innerHTML = t3;
-      } else if (this.ruleForm.phoneNumber > 10) {
-        t3 = "le numero de telephone ne doit pas etre plus de 14 chiffres !";
+      } else if (this.ruleForm.phoneNumber <10) {
+        t3 = "le numero de telephone ne doit pas etre plus de 10 chiffres !";
         document.getElementById("j3").innerHTML = t3;
       } else {
         t3 = "";
@@ -354,14 +347,7 @@ export default {
       }
 
 
-      if (this.ruleForm.sexe == "") {
-        t5 = "Veuillez sélectionnez votre sexe !";
-        document.getElementById("j5").innerHTML = t5;
-      } else {
-        t5 = "";
-        document.getElementById("j5").innerHTML = t5;
-      }
-
+      
      
 
 
@@ -698,16 +684,17 @@ h1 {
   font-size: 50px;
 }
 p{
-  width: 200px;}
-
-.forgetpw {
-  width: 300px;
-  color: red;
+  width: 200px;
+   color: red;
   margin-top: -4%;
   margin-bottom: -4%;
   margin-left: 5%;
 
-    font-size: small;
+    font-size: xx-small;}
+
+.forgetpw {
+  width: 300px;
+ 
 
 }
 

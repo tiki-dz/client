@@ -7,14 +7,16 @@
         <h5>code non reçu ? <a> Cliquez ici pour renvoyer le code</a></h5>
         <form name="frm"  class="code">
           <input
-            type="number"
-            placeholder="       -"
+            type="text"
+            maxlength="6"
             min="0"
-            max="9"
+            max="999999"
             required
             v-model="frm.nbr1"
           />
-          <span id="msg" style="color:red"></span>
+           <input type="email" />
+          <!--
+<span id="msg" style="color:red"></span>
           <input
             type="number"
             placeholder="       -"
@@ -71,7 +73,18 @@
           />
                     <span id="msg" style="color:red"></span>
 
-          <button type="button" class="submit-btn" >Terminer</button>
+input {
+  display: inline; /* the default for span */
+  width: 80px;
+  height: 80px;
+  padding: 5px;
+  border: 1px solid rgb(247, 247, 253);
+  background-color: rgb(235, 227, 210);
+  margin: 1%;
+}
+          -->
+          
+          <button type="button" class="submit-btn"  @click="VerifyCode()">Terminer</button>
         </form>
       </div>
     </div>
@@ -92,11 +105,7 @@ export default {
     return {
         frm:{
             nbr1:"",
-                        nbr2:"",
-            nbr3:"",
-            nbr4:"",
-            nbr5:"",
-            nbr6:"",
+           email:"",
 
         }
     };
@@ -106,9 +115,13 @@ export default {
       VerifyCode() {
       try {
         const response = authService.VerifyCode({
-               code:this.frm.nbr1+this.frm.nbr2+this.frm.nbr3+this.frm.nbr4+this.frm.nbr5+this.frm.nbr6,
+                         email:this.frm.email,
+
+               code:this.frm.nbr1,
  
  });
+         console.log("rah yedkhoulle")
+
         ElNotification({
           title: "code correct",
           message: "code correct ",
@@ -117,6 +130,7 @@ export default {
         console.log(response.data);
       } catch (error) {
         console.log(error);
+        console.log("errrreer")
       }
     },
    
@@ -136,7 +150,6 @@ export default {
   width: 100%;
   background-position: center;
   background-size: cover;
-  position: absolute;
 }
 /********************************************************* GLASS ************************************************************* */
 
@@ -220,36 +233,68 @@ h5 {
   0% {
     background-color: rgb(192, 147, 12);
     left: 0px;
-    top: 0px;
+    top: 60px;
   }
-  25% {
+  10% {
     background-color: rgb(255, 200, 0);
     left: 200px;
-    top: 10px;
+    top: 70px;
   }
-  50% {
+  20% {
+    background-color: rgb(171, 140, 39);
+    left: 200px;
+    top: 75px;
+  }
+  30% {
     background-color: rgb(255, 132, 0);
     left: 200px;
     top: 200px;
   }
-  75% {
-    background-color: rgb(214, 193, 73);
+  40% {
+    background-color: rgb(214, 132, 73);
     left: 0px;
     top: 200px;
   }
-  100% {
+  50% {
     background-color: rgb(255, 191, 0);
     left: 0px;
-    top: 0px;
+    top: 60px;
   }
+  60% {
+    background-color: rgb(192, 147, 12);
+    left: 0px;
+    top: 70px;
+  }
+  70% {
+    background-color: rgb(255, 200, 0);
+    left: 200px;
+    top: 75px;
+  }
+  80% {
+    background-color: rgb(171, 140, 39);
+    left: 200px;
+    top: 80px;
+  }
+  90% {
+    background-color: rgb(255, 132, 0);
+    left: 200px;
+    top: 200px;
+  }
+  100% {
+    background-color: rgb(214, 153, 73);
+    left: 0px;
+    top: 200px;
+  }
+  
 }
+
 input {
   display: inline; /* the default for span */
-  width: 80px;
-  height: 80px;
+  width: 500px;
+  height: 50px;
   padding: 5px;
   border: 1px solid rgb(247, 247, 253);
   background-color: rgb(235, 227, 210);
-  margin: 1%;
+  margin-left: 3%;
 }
 </style>
