@@ -25,6 +25,9 @@ import ForgetPw1 from "@/views/forget Password/ForgetPw1.vue";
 import ForgetPw2 from "@/views/forget Password/ForgetPw2.vue";
 import NotFound from "@/views/NotFoundView.vue";
 import ForgetPw from "@/views/forget Password/ForgetPasswordView.vue";
+import ProfileVue from "@/views/ProfileView.vue";
+import ResetPassword from "@/views/ResetPasswordView.vue"
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -57,6 +60,18 @@ const router = createRouter({
       //beforeEnter: CheckLogin,
     },
     {
+      path: "/profile",
+      name: "profile",
+      component: ProfileVue,
+      //beforeEnter: CheckLogin,
+    },
+    {
+      path: "/resetPassword",
+      name: "ResetPasswords",
+      component: ResetPassword,
+      //beforeEnter: CheckLogin,
+    },
+    {
       path: "/about",
       name: "about",
       // route level code-splitting
@@ -76,6 +91,7 @@ const router = createRouter({
       component: CodeVerificationView,
       //beforeEnter: CheckLogin,
     },
+   
   ],
 });
 

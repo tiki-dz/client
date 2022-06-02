@@ -16,9 +16,9 @@
                         <nav>
                             <ul id="navigation">    
                                 <li class="active"><a href="http://127.0.0.1:8090/"> Home</a></li>
-                                <li><a href="http://127.0.0.1:8090/authentification">espace client</a></li>
+                                <li><a href="http://127.0.0.1:8090/profile">espace client</a></li>
                                 <li><a href="#partenaire">espace partenaire</a></li>
-                                <li><a href="#panier">panier</a></li>
+                                <li><a href="http://127.0.0.1:8090/authentification"><img src="@/assets/userProfile.png" style="width:25px"></a></li>
                             </ul>
                         </nav>
                     </div>

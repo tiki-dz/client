@@ -63,7 +63,6 @@
               <el-input
                 v-model="ruleForm.firstName"
                 placeholder="Prenom"
-                
                 class="input-field"
               />
               <p id="j1"></p>
@@ -74,7 +73,8 @@
               <el-input
                 v-model="ruleForm.lastName"
                 placeholder="Nom"
-                
+                                style=" width: 190px;"
+
                 class="input-field"
               />
               <p id="j2"></p>
@@ -96,7 +96,7 @@
 
             <el-col :span="10">
               <el-date-picker
-                style="margin-top:9%;width: 180px;"
+                style="width: 190px;margin-top:7%;"
                 id="birthDate"
                 v-model="ruleForm.birthDate"
                 type="date"
@@ -105,7 +105,7 @@
                 class="input-field"
               >
               </el-date-picker>
-              <p id="j4" style="margin-top:5%;"></p>
+              <p id="j4" style="margin-top:-1px;"></p>
               
             </el-col>
           </el-row>
@@ -134,7 +134,7 @@
                 id="city"
                 v-model="ruleForm.city"
                 placeholder="ville"
-                
+                style=" width: 190px;"
                 class="input-field"
               ></el-input>
           
@@ -161,6 +161,7 @@
                 v-model="ruleForm.password"
                 show-password
                 class="input-field"
+                style=" width: 190px;"
               />
                
               <p id="j8"></p>
@@ -295,7 +296,7 @@ export default {
     },
     checkForm() {
       
-      let t1, t2, t3, t4, t5, t6, t7;
+      let t1, t2, t3, t4, t5, t6, t7,t8;
 
       if (this.ruleForm.firstName == "") {
         t1 = "Veuillez entrer le nom !";
@@ -336,7 +337,13 @@ export default {
         t4 = "";
         document.getElementById("j4").innerHTML = t4;
       }
-
+ if (this.ruleForm.sexe  == "") {
+        t5 = "Choisisez votre sexe!";
+        document.getElementById("j5").innerHTML = t5;
+      } else {
+        t5 = "";
+        document.getElementById("j5").innerHTML = t5;
+      }
 
       if (this.ruleForm.city  == "") {
         t6 = "Veuillez saisire votre ville !";
@@ -345,11 +352,6 @@ export default {
         t6 = "";
         document.getElementById("j6").innerHTML = t6;
       }
-
-
-      
-     
-
 
       if (this.ruleForm.email == "") {
         t7 = "veuillez saisire l'adresse mail  !";
@@ -364,6 +366,14 @@ export default {
         t7 = "";
         document.getElementById("j7").innerHTML = t7;
       }
+       if (this.ruleForm.password  == "") {
+        t8 = "Veuillez saisire un mot de passse !";
+        document.getElementById("j8").innerHTML = t8;
+      } else {
+        t8 = "";
+        document.getElementById("j8").innerHTML = t8;
+      }
+
     },
 
     register() {
@@ -413,7 +423,7 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
 */
 .form-box {
   width: 880px;
-  height: 480px;
+  height: 490px;
   position: relative;
   margin:  auto;
   background: #f9cea5dc;
@@ -447,6 +457,7 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   width: 45%;
 
 }
+
 #btn {
   top: 0;
   left: 0;
@@ -458,14 +469,14 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   transition: 0.5s;
 }
 .input-group-login {
-  top: 10px;
+  margin-top: 40px;
   position: absolute;
   width: 280px;
   transition: 0.5s;
   font-size: large;
 }
 .input-group-register {
-  top: 120px;
+  top: 130px;
   position: absolute;
   width: 180px;
   transition: 0.5s;
@@ -507,8 +518,8 @@ input {
 
 #register {
   left: 420px;
-  margin: 4px, 4px;
-  margin-top: -4%;
+  margin: 2px, 4px;
+  margin-top: 1%;
   padding: 4px;
   width: 450px;
   height: 500px;
@@ -592,7 +603,9 @@ input {
   margin-left: 50%;
   margin-left: 42%;
   margin-top: 5%;
+  font-size: 80%;
 }
+
 
 @font-face {
   font-family: "fontfutura";
@@ -686,7 +699,7 @@ h1 {
 p{
   width: 200px;
    color: red;
-  margin-top: -4%;
+  margin-top: -10%;
   margin-bottom: -4%;
   margin-left: 5%;
 
