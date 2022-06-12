@@ -248,13 +248,16 @@ async modifierProfile() {
     },
    async savePersInfo() {
       try {
-        this.tempInfo = Object.assign({}, this.profile);
+
+
+        this.tempInfo = {firstName:this.profile.firstName,lastName:this.profile.lastName,city:this.profile.city,sexe:(this.profile.sexe === 1 ? "Homme" : "Femme"),phoneNumber:this.profile.phoneNumber};
+
         this.Disabled = true;
- console.log("try",this.profile);
+        console.log("try",this.tempInfo);
         console.log("sauvgarde!");
         console.log(this.profile);
 
-        const response = await authService.updateProfile(this.profile);
+        const response = await authService.updateProfile(this.tempInfo);
         console.log(response.data);
       } catch (error) {
         console.log(`ya un probleme dans la modif ! ${error}`);
