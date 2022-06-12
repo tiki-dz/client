@@ -32,6 +32,7 @@
                 required
                 show-password
               />
+                    
               <a href="http://127.0.0.1:8090/forgetpw" id="mob" class="forgetpw" >Mot de passe oublier?</a>
               <button type="submit" class="submit-btn" @click="connexion()">
                 Connexion
@@ -207,6 +208,7 @@ export default {
         phoneNumber: "",
         sexe: "",
         city: "",
+       
         errors: [],
       },
       sexeopt: [
@@ -222,6 +224,7 @@ export default {
       form: {
         email: "",
         password: "",
+         fcm_token:"hello",
       },
     };
   },
@@ -262,10 +265,13 @@ export default {
       }
     },
     async connexion() {
+      
       try {
+
         const account = await authService.Login({
           email: this.form.email.toLowerCase(),
           password: this.form.password,
+          fcm_token:"hello",
         });
         console.log(account.data);
         console.log(account.data.success);
@@ -329,7 +335,7 @@ export default {
 
 
       if (
-        
+         
         this.ruleForm.birthDate == "") {
         t4 = "Veuillez selectionner la date !";
         document.getElementById("j4").innerHTML = t4;

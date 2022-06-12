@@ -1,5 +1,4 @@
 <template>
-  <!-- deviding screen into two columns: sidebar and content -->
   <section
     class="py-8"
     style="
@@ -7,110 +6,112 @@
       min-height: 100vh;
     "
   >
-    <el-row :gutter="2">
-      <el-col :xs="1" :sm="2" :md="4" :lg="6" :xl="8"> </el-col>
-      <el-col :xs="22" :sm="20" :md="16" :lg="12" :xl="8">
+   <el-row :gutter="2">
+   <el-col :xs="1" :sm="2" :md="4" :lg="6" :xl="8"> </el-col>
+   <el-col :xs="22" :sm="20" :md="16" :lg="12" :xl="8">
         <br />
         <br />
         <el-card shadow="hover" class="forgotpasswordCard">
-          <h3>Réinitialiser Le mot de passe</h3>
-          <!-- Reset Password -->
-          <br />
-          <p>Veuillez entrer votre nouveau mot de passe.</p>
-          <!-- Please enter your new password -->
-          <br />
-          <el-form
-            ref="formRef3"
-            :model="inputForm"
-            status-icon
-            :rules="rules"
-            :label-position="labelPosition"
-          >
-            <el-form-item label="Password" prop="pass">
-              <el-input
-                v-model="inputForm.pass"
-                type="password"
-                autocomplete="off"
-                show-password
-              />
-            </el-form-item>
-            <el-form-item label="Confirm" prop="checkPass">
-              <el-input
-                v-model="inputForm.checkPass"
-                type="password"
-                autocomplete="off"
-                show-password
-                style="margin-left: 10px"
-              /> </el-form-item
-            ><br />
-            <el-form-item>
-              <div style="margin: auto">
+ <h3>Réinitialiser Le mot de passe</h3>
+ <p>Veuillez entrer votre ancien et nouveau mot de passe.</p>
+<el-form
+   ref="ruleForm"
+      :size="formSize"
+      :model="ruleForm"
+      status-icon
+      :rules="rules"
+      label-width="120px"
+      class="demo-ruleForm">
+
+ <el-form-item label="Ancien" >
+
+             <el-input  
+             v-model="ruleForm.password"
+              type="password"
+              autocomplete="off"
+               show-password
+                 style="width: 80%;"
+             />
+ </el-form-item>
+         
+ <el-form-item label=" Nouveau " >
+
+             <el-input  
+             v-model="ruleForm.newPassword"
+              type="password"
+              autocomplete="off"
+               show-password
+                style="width: 80%;"
+             />
+ </el-form-item>
+
+ <div style="margin-left: 23%">
                 <el-button
                   type="primary"
-                  @click="submitForm3(formRef3)"
+                  @click="reset()"
                   style="margin: auto"
                   >Soumettre</el-button
                 >&nbsp;
-                <el-button @click="resetForm3(formRef3)" style="margin: auto"
+                <el-button 
+               
+                style="margin: auto"
                   >Réinitialiser</el-button
                 >
               </div>
-            </el-form-item>
-          </el-form>
+
+</el-form>
         </el-card>
-      </el-col>
-      <el-col :xs="1" :sm="2" :md="4" :lg="6" :xl="8"> </el-col>
-    </el-row>
+   </el-col>
+   </el-row>
   </section>
 </template>
 
-<script lang="ts" setup>
-import { reactive, ref } from "vue";
-import type { FormInstance } from "element-plus";
-import { ElNotification } from "element-plus";
+<script>
+export default {
+  data(){
+    return{
+       ruleForm: {
+        password: "",
+        newPassword:"",
+       
+      },
 
-const formRef3 = ref<FormInstance>();
-const inputForm = reactive({
-  pass: "",
-  checkPass: "",
-});
-const labelPosition = ref("left");
-
-const resetForm3 = (formEl: FormInstance | undefined) => {
-  if (!formEl) return;
-  formEl.resetFields();
+    };
+  },
+  methods:{
+    async reset() {
+      try {
+       
+          const response = await authService.ResetPw({
+            password: this.ruleForm.password,
+            newPassword: this.ruleForm.newPassword,
+           
+          });
+ ElNotification({
+          title: "utilisateur cree avec  succees",
+          message: "utilisateur cree avec  succees ",
+          type: "success",
+        });
+      
+          alert("regiter successfull");
+          console.log(response.data);
+      
+      } catch (error) {
+         ElNotification({
+          title: "impossible de cree l utilisateur",
+          message: "Erreur ",
+          type: "error",
+        });
+        console.log(error);
+      }
+    },
+  },
 };
 
-const validatePass = (rule: any, value: any, callback: any) => {
-  if (value === "") {
-    callback(new Error("Veuillez entrer le mot de passe"));
-  } else if (value.length <= 7) {
-    callback(new Error("Mot de passe doit être d'au moins 8 caractères "));
-  } else {
-    if (inputForm.checkPass !== "") {
-      if (!formRef3.value) return;
-      formRef3.value.validateField("checkPass", () => null);
-    }
-    callback();
-  }
-};
-const validatePass2 = (rule: any, value: any, callback: any) => {
-  if (value === "") {
-    callback(new Error("Veuillez saisir à nouveau le mot de passe"));
-  } else if (value !== inputForm.pass) {
-    callback(new Error("Deux entrées ne correspondent pas !"));
-  } else {
-    callback();
-  }
-};
-
-const rules = reactive({
-  pass: [{ validator: validatePass, trigger: "blur" }],
-  checkPass: [{ validator: validatePass2, trigger: "blur" }],
-});
+ 
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+
+<style>
 .forgotpasswordCard {
   padding: 5% 0;
   border-radius: 15px;

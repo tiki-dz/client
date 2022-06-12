@@ -1,79 +1,172 @@
 <template>
 
 <div class="body"> 
- <br/><br/><br/><br/><br/><br/><br/>
- <div class="main">
-  <el-divider content-position="left" id="devider"><span>Profile</span></el-divider>
-      <el-card shadow="always" class="profile"> 
-          
-     <el-row>
-         <el-col :span="7">
-      <div id="photo" >   <img  src="#" ></div>
-
-
-<br/><br/>
-
-           <el-button type="primary" plain class="edit">Modifier</el-button>
-           <br/><br/>
-           <a href="http://127.0.0.1:8090/forgetpw" id="reinitialiser"> <i class="fa-solid fa-pen-to-square"></i>  Renitialiser le mot de passe</a>
-
-         </el-col>
+   <br/><br/><br/><br/><br/><br/><br/>
+ 
+    <div class="main">
+    <el-divider content-position="left" id="devider"><span>Profile</span></el-divider>
+          <el-card shadow="always" class="profile"> 
+              <el-row>
+                <el-col :span="7">
+                    <div id="photo" >   
+                      <img
+                         
+                             />
+                    </div>
+                     <br/><br/>
+                     <el-button type="primary" plain class="edit">Modifier</el-button>
+                     <br/><br/>
+                     <a href="http://127.0.0.1:8090/resetPassword1" id="reinitialiser"> <i class="fa-solid fa-pen-to-square"></i>  Renitialiser le mot de passe</a>
+             </el-col>
           <el-col :span="1" >
-          <el-divider direction="vertical" style="height:100%"  border-style="solid"/>
+                <el-divider direction="vertical" style="height:100%"  border-style="solid"/>
          </el-col>
           <el-col :span="16">
-         
-         
-         <el-row>
-             <el-col :span="10">
-             gggggg
-             </el-col>
-              <el-col :span="10">
-              ggg
-             </el-col>
-         </el-row>
+               <v-content>
+                      <el-row>
+
+                         <el-col :span="12"> 
+                         Nom
+                         </el-col>
+                         
+                         <el-col :span="12"> 
+                         Prénom
+                         </el-col>
+              </el-row>
+
+              <el-row>
+  <el-col :span="10"> 
+   <el-input
+                              v-model="profile.lastName"
+ :disabled="Disabled"
+                             ></el-input>
+  </el-col>
+                          <el-col :span="10" style="margin-left:8%">
+                          <el-input
+                              v-model="profile.firstName"
+                              :disabled="Disabled"
+                            ></el-input> 
+                         </el-col>
+                    </el-row>
+                    <br/>
 
 
+  <el-row>
+
+                         <el-col :span="12"> 
+                        Date de naissance
+                         </el-col>
+                          <el-col :span="12"> 
+                         Lieu de naissance
+                         </el-col> 
+  </el-row>
+  <el-row>
+
+  <el-col :span="10"> 
+  <el-date-picker
+                              type="date"
+                              v-model="profile.birthDate"
+                              :disabled-date="disabledDate"
+                              :shortcuts="shortcuts"
+                             :disabled="Disabled"
+                            ></el-date-picker>
+                         </el-col>  
+                         <el-col :span="10" style="margin-left:8%">
+ <el-input
+                              v-model="profile.city"
+                        
+                      
+                         
+                              placeholder="Lieu de naissance"
+                             
+                              :disabled="Disabled"
+                            />
+                         </el-col>
+                         
+                    </el-row>
+                        <br/>
+
+
+                   <el-row>
+                        <el-col :span="12">
+                        sexe
+                        </el-col>
+                        <el-col :span="12">
+                        Téléphone
+                        </el-col>
+                    </el-row>
 <el-row>
-             <el-col :span="10">
-             gggggg
-             </el-col>
-              <el-col :span="10">
-              ggg
-             </el-col>
-         </el-row>
+    <el-col :span="10">
+          <el-select
+                              v-model="profile.sexe"
+                              placeholder="Select"
+                             :disabled="Disabled"
+                            >
+                              <el-option
+                                v-for="item in sexeopt"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value"
+                              >
+                              </el-option>
+                            </el-select>
+    </el-col>
+    <el-col :span="10" style="margin-left:8%">
+     <el-input
+                              v-model="profile.phoneNumber"
+                             :disabled="Disabled"
+                            ></el-input>
+    </el-col>
+</el-row>
+<br/>
+           <el-row>
+
+                         <el-col :span="12"> 
+                     E-mail
+                         </el-col>
+                        
+  </el-row>
+               <el-row>
+                   <el-col :span="10">
+ <el-input
+                              v-model="profile.AccountEmail"
+                            disabled
+                            />
+                   </el-col>
+               </el-row>
+    <br/>
+
+ <el-row>
+      <div v-if="Disabled">
+                            <el-button
+                            
+                             @click="modifierProfile()"
+                             
+                              >
+                                Modifier
+                              </el-button>
+                          </div>
+                          <div v-else>
+                           <el-button
+                            @click="savePersInfo()"
+                              
+                             
+                              >
+                                Enregister </el-button
+                              ><el-button
+                              @click="annulerModif()"
+                              
+                              >
+                                Annuler
+                              </el-button>
+                          </div>
+ </el-row>
+    </v-content>
+          </el-col>
+ </el-row>
 
 
-
-<el-row>
-             <el-col :span="10">
-             gggggg
-             </el-col>
-              <el-col :span="10">
-              ggg
-             </el-col>
-         </el-row>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-         
-         </el-col>
-     </el-row>     
-     </el-card>
+                </el-card>
      <!--***************************************************************************************************************-->
      <el-menu
     :default-active="activeIndex"
@@ -97,16 +190,86 @@
 </template>
 
 <script>
+import authService from "../services/authService";
+
 import Navigation1 from '@/components/Navigation1.vue'
 import { ref } from 'vue'
 
 export default {
    
+data() {
+    return {
+         sexeopt: [
+        {
+          value: 0,
+          label: "FEMME",
+        },
+        {
+          value: 1,
+          label: "HOMME",
+        },
+      ],
+      profile:{},
+        tempInfo: "",
+      Disabled: true,
+      
+    };
+  },
+  methods: {
+ async getProfile(){
+try {
+       let response = await authService.getProfile();
+        this.profile = response.data.data.User;
+                console.log("ça fonctionne !");
 
-}
+    
+       
+   
+      } catch (error) {
+       console.log("ya un probleme!")
+      }
+    },
+  
+async modifierProfile() {
+      try {
+        this.tempInfo = Object.assign({}, this.profile);
+        this.Disabled = false;
+        console.log("modification !");
+      } catch (error) {
+        console.log("ya un probleme!");
+      }
+    },
+ async annulerModif() {
+      try {
+        this.profile = Object.assign({}, this.tempInfo);
+        this.Disabled = true;
+        console.log("annulation!");
+      } catch (error) {
+        console.log("ya un probleme!");
+      }
+    },
+   async savePersInfo() {
+      try {
+        this.tempInfo = Object.assign({}, this.profile);
+        this.Disabled = true;
 
-const activeIndex = ref('1')
-const activeIndex2 = ref('1')
+        console.log("sauvgarde!");
+        console.log(this.profile);
+
+        const response = await authService.updateProfile({
+          profile: this.profile,
+        });
+        console.log(response.data);
+      } catch (error) {
+        console.log(`ya un probleme! ${error}`);
+      }
+    },
+
+},
+created() {
+    this.getProfile();
+  },
+};
 
 </script>
 
@@ -161,4 +324,5 @@ span{
 
     color: #2B044D;
 }
+
 </style>

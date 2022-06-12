@@ -1,6 +1,8 @@
 import Api from "@/services/api";
 export default {
   Login(credantials) {
+    console.log(credantials);
+
     return Api().post("/common/login", credantials);
   },
   SignupClient(credantials) {
@@ -16,4 +18,31 @@ export default {
   Resendcode(credantials) {
     return Api().post("/client/resendVerfication", credantials);
   },
+  getProfile() {
+  
+   return Api().get("/client/profile", 
+      {
+        headers: {
+          "x-access-token": localStorage.getItem("LoggedUser"),
+        },
+      }
+    );
+  },
+ updateProfile(credantials) {
+   console.log("12121",credantials);
+    return Api().put("/client", credantials , {
+      headers: {
+        "x-access-token": localStorage.getItem("LoggedUser"),
+      },
+    });
+  },
+  
+  ResetPw(credantials) {
+    return Api().put("/client/resetPassword", credantials , {
+      headers: {
+        "x-access-token": localStorage.getItem("LoggedUser"),
+      },
+  }
+  )}
+
 }

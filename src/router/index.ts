@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import AboutViewVue from "@/views/AboutView.vue";
 import LoginViewVue from "@/views/LoginView.vue";
 import CodeVerificationView from "@/views/CodeVerificationView.vue";
+import ResetPwView from "@/views/ResetPasswordView.vue"
 /*
 function CheckLogin(to, from, next) {
   let isAuthenticated = false;
@@ -26,7 +27,7 @@ import ForgetPw2 from "@/views/forget Password/ForgetPw2.vue";
 import NotFound from "@/views/NotFoundView.vue";
 import ForgetPw from "@/views/forget Password/ForgetPasswordView.vue";
 import ProfileVue from "@/views/ProfileView.vue";
-import ResetPassword from "@/views/ResetPasswordView.vue"
+import ResetPassword1 from "@/views/ResetPasswordView.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -65,10 +66,15 @@ const router = createRouter({
       component: ProfileVue,
       //beforeEnter: CheckLogin,
     },
+    { 
+      path: "/resetPassword", 
+      name: "ResetPwView",
+      component: ResetPwView,
+    },
     {
-      path: "/resetPassword",
-      name: "ResetPasswords",
-      component: ResetPassword,
+      path: "/resetPassword1",
+      name: "ResetPasswords1",
+      component: ResetPassword1,
       //beforeEnter: CheckLogin,
     },
     {
