@@ -67,6 +67,7 @@
 </template>
 
 <script>
+import { ElNotification } from "element-plus";
 export default {
   data(){
     return{
@@ -81,7 +82,7 @@ export default {
   methods:{
     async reset() {
       try {
-       
+       console.log("1111");
           const response = await authService.ResetPw({
             password: this.ruleForm.password,
             newPassword: this.ruleForm.newPassword,
@@ -97,6 +98,8 @@ export default {
           console.log(response.data);
       
       } catch (error) {
+
+          console.log("22222222");
          ElNotification({
           title: "impossible de cree l utilisateur",
           message: "Erreur ",

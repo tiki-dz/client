@@ -222,9 +222,6 @@ try {
         this.profile = response.data.data.User;
                 console.log("ça fonctionne !");
 
-    
-       
-   
       } catch (error) {
        console.log("ya un probleme!")
       }
@@ -233,6 +230,7 @@ try {
 async modifierProfile() {
       try {
         this.tempInfo = Object.assign({}, this.profile);
+       
         this.Disabled = false;
         console.log("modification !");
       } catch (error) {
@@ -250,15 +248,13 @@ async modifierProfile() {
     },
    async savePersInfo() {
       try {
-        this.tempInfo = Object.assign({}, this.profile);
+        this.tempInfo = this.profile;
         this.Disabled = true;
-
+ console.log("try",this.profile);
         console.log("sauvgarde!");
         console.log(this.profile);
 
-        const response = await authService.updateProfile({
-          profile: this.profile,
-        });
+        const response = await authService.updateProfile(this.profile);
         console.log(response.data);
       } catch (error) {
         console.log(`ya un probleme! ${error}`);
