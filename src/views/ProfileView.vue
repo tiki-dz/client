@@ -248,7 +248,7 @@ async modifierProfile() {
     },
    async savePersInfo() {
       try {
-        this.tempInfo = this.profile;
+        this.tempInfo = Object.assign({}, this.profile);
         this.Disabled = true;
  console.log("try",this.profile);
         console.log("sauvgarde!");
@@ -257,7 +257,7 @@ async modifierProfile() {
         const response = await authService.updateProfile(this.profile);
         console.log(response.data);
       } catch (error) {
-        console.log(`ya un probleme! ${error}`);
+        console.log(`ya un probleme dans la modif ! ${error}`);
       }
     },
 
