@@ -6,8 +6,8 @@ export default {
     return {
       currentPage: 1,
       Allevents: [],
-      pages: 1,
-      pageSize: 50,
+      pages: 0,
+      pageSize: 5,
     };
   },
   mounted: function () {
@@ -131,6 +131,16 @@ export default {
         </el-col>
       </el-row>
     </el-main>
+    <el-pagination
+            v-model:currentPage="currentPage"
+            v-model:page-size="pageSize"
+            :small="small"
+            :disabled="disabled"
+            :background="background"
+            layout="prev, pager, next, jumper"
+            :total="pages"
+            @current-change="handleCurrentChange"
+          />
   </el-container>
   <section class="py-6">
     <hr />
