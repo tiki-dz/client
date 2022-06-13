@@ -246,37 +246,26 @@ export default {
             city: this.ruleForm.city,
             phoneNumber: this.ruleForm.phoneNumber,
           });
-
+          this.$router.push({ name: "code" });
+            localStorage.removeItem('x-access-token');
+            localStorage.setItem( "x-access-token",response.data.data.token);
           ElNotification({
             title: "Succès",
             message: "Utilisateur créé avec succès ",
             type: "success",
           });
-this.$router.push({ name: "code" });
-          console.log(response.data);
 
-          
-          
-//localStorage.removeItem('x-access-token');
-       // localStorage.clear();
-
-        localStorage.setItem( "x-access-token",response.data.data.token);
           router.push({
-    name: 'code',
-    params: {email:this.ruleForm.email,password:this.ruleForm.password
-    }
-});
+            name: 'code',
+          });
        
       } catch (error) {
-        ElNotification({
-          title: "Echec",
-          message: "Impossible de créer l'utilisateur ",
-          type: "error",
-        });
-            console.log("signup4");
-
-        console.log(error);
-                 console.log("here");
+        // ElNotification({
+        //   title: "Echec",
+        //   message: "Impossible de créer l'utilisateur ",
+        //   type: "error",
+        // });
+        //console.log(error);
 
       }
     },

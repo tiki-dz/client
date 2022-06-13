@@ -7,7 +7,7 @@
                 <!-- Logo -->
                 <div class="col-xl-2 col-lg-2 col-md-2 col-4">
                     <div class="logo">
-                        <a href="#"><img src="logo.png" alt="" width="80%" height="80%" ></a>
+                        <a href="#"><img src="logo.png" alt="" style="width:80%; height:80%" ></a>
                     </div>
                 </div>
                 <div class="col-xl-10 col-lg-10 col-md-10">

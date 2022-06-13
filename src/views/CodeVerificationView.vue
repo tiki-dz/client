@@ -1,6 +1,6 @@
 <template>
   <div class="full-page">
-    <br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/>
 
     <div id="login-form" class="login-page">
       <div class="form-box">
@@ -39,7 +39,7 @@ export default {
   data() {
     return {
         frm:{
-            code:"",
+          code:"",
           email:"",
           fcm_token:"hello"
        }
@@ -52,6 +52,7 @@ export default {
         const response = await authService.VerifyCode({
                     email: this.frm.email,
                     code: this.frm.code,
+                    fcm_token: this.frm.fcm_token
   });
          console.log("verifycode")
         console.log(response.data.data);
