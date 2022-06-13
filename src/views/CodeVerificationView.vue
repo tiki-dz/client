@@ -1,90 +1,26 @@
 <template>
   <div class="full-page">
+    <br/><br/><br/><br/><br/><br/>
+
     <div id="login-form" class="login-page">
       <div class="form-box">
         <h1>Inscription</h1>
         <h3>Entrez le code de verification</h3>
         <h5>code non reçu ? <a> Cliquez ici pour renvoyer le code</a></h5>
         <form name="frm"  class="code">
-          <input
-            type="text"
-            maxlength="6"
-            min="0"
-            max="999999"
-            required
-            v-model="frm.nbr1"
-          />
-           <input type="email" />
-          <!--
-<span id="msg" style="color:red"></span>
-          <input
-            type="number"
-            placeholder="       -"
-            min="0"
-            max="9"
-            required
-                        v-model="frm.nbr2"
-
-
-          />
-                    <span id="msg" style="color:red"></span>
-
-          <input
-            type="number"
-            placeholder="       -"
-            min="0"
-            max="9"
-            required
-                        v-model="frm.nbr3"
-
-          />
-                    <span id="msg" style="color:red"></span>
-
-          <input
-            type="number"
-            placeholder="       -"
-            min="0"
-            max="9"
-            required
-                        v-model="frm.nbr4"
-
-          />
-                    <span id="msg" style="color:red"></span>
-
-          <input
-            type="number"
-            placeholder="       -"
-            min="0"
-            max="9"
-            required
-                        v-model="frm.nbr5"
-
-          />
-                    <span id="msg" style="color:red"></span>
-
-          <input
-            type="number"
-            placeholder="       -"
-            min="0"
-            max="9"
-            required
-                        v-model="frm.nbr6"
-
-          />
-                    <span id="msg" style="color:red"></span>
-
-input {
-  display: inline; /* the default for span */
-  width: 80px;
-  height: 80px;
-  padding: 5px;
-  border: 1px solid rgb(247, 247, 253);
-  background-color: rgb(235, 227, 210);
-  margin: 1%;
-}
-          -->
+          <el-input type="email" placeholder="E-mail"
           
-          <button type="button" class="submit-btn"  @click="VerifyCode()">Terminer</button>
+           v-model="frm.email"
+          />
+            
+     
+
+          <el-input
+            type="text"
+          
+            v-model="frm.code"
+          />
+                  <button type="button" class="submit-btn"  @click="VerifyCode()">Terminer</button>
         </form>
       </div>
     </div>
@@ -98,37 +34,41 @@ import { ElNotification } from "element-plus";
 import authService from "../services/authService";
 export default {
   name: "HelloWorld",
-  props: {
-    msg: String,
-  },
+     props: ['email','password'],
+
   data() {
     return {
         frm:{
-            nbr1:"",
-           email:"",
-
-        }
+            code:"",
+          email:"",
+          fcm_token:"hello"
+       }
     };
   },
   methods: {
     
-      VerifyCode() {
+     async VerifyCode() {
       try {
-        const response = authService.VerifyCode({
-                         email:this.frm.email,
-
-               code:this.frm.nbr1,
- 
- });
-         console.log("rah yedkhoulle")
+        const response = await authService.VerifyCode({
+                    email: this.frm.email,
+                    code: this.frm.code,
+  });
+         console.log("verifycode")
+        console.log(response.data.data);
 
         ElNotification({
           title: "code correct",
           message: "code correct ",
           type: "success",
         });
-        console.log(response.data);
+          
+        console.log(response.data.data);
       } catch (error) {
+         ElNotification({
+          title: "Erreur",
+          message: "Vuillez resseyer ",
+          type: "error",
+        });
         console.log(error);
         console.log("errrreer")
       }
@@ -287,14 +227,10 @@ h5 {
   }
   
 }
-
-input {
-  display: inline; /* the default for span */
-  width: 500px;
-  height: 50px;
-  padding: 5px;
-  border: 1px solid rgb(247, 247, 253);
-  background-color: rgb(235, 227, 210);
-  margin-left: 3%;
+.el-input{
+  width: 60%;
+  margin-left: 18%;
+  margin-top: 2%;
 }
+
 </style>

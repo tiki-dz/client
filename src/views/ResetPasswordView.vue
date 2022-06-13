@@ -53,7 +53,7 @@
                   >Soumettre</el-button
                 >&nbsp;
                 <el-button 
-               
+               @click="annuler()"
                 style="margin: auto"
                   >Réinitialiser</el-button
                 >
@@ -68,6 +68,8 @@
 
 <script>
 import { ElNotification } from "element-plus";
+import authService from "../services/authService";
+
 export default {
   data(){
     return{
@@ -82,32 +84,37 @@ export default {
   methods:{
     async reset() {
       try {
-       console.log("1111");
           const response = await authService.ResetPw({
             password: this.ruleForm.password,
             newPassword: this.ruleForm.newPassword,
-           
-          });
+         });
+
+
+          console.log("aaaaaa");
  ElNotification({
-          title: "utilisateur cree avec  succees",
-          message: "utilisateur cree avec  succees ",
+          title: "succees",
+          message: "mot de passe réinitialiser avec  succees",
           type: "success",
         });
-      
-          alert("regiter successfull");
-          console.log(response.data);
+this.annuler();
       
       } catch (error) {
 
-          console.log("22222222");
+          console.log("bbbbbbbbbbb");
          ElNotification({
-          title: "impossible de cree l utilisateur",
-          message: "Erreur ",
+          title: "Erreur",
+          message: "impossible réinitialiser le mot de passe ",
           type: "error",
         });
         console.log(error);
       }
     },
+    annuler(){
+       this.ruleForm.password= '';
+       this.ruleForm.newPassword = '';
+               
+      },
+    
   },
 };
 

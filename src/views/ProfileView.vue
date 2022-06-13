@@ -9,19 +9,18 @@
               <el-row>
                 <el-col :span="7">
                     <div id="photo" >   
-                      <img
-                         
-                             />
+                     <img :src="profile.profilePicture" class="image" />
                     </div>
                      <br/><br/>
                      <el-button type="primary" plain class="edit">Modifier</el-button>
                      <br/><br/>
                      <a href="http://127.0.0.1:8090/resetPassword1" id="reinitialiser"> <i class="fa-solid fa-pen-to-square"></i>  Renitialiser le mot de passe</a>
              </el-col>
-          <el-col :span="1" >
+    <el-col :span="1" >
                 <el-divider direction="vertical" style="height:100%"  border-style="solid"/>
          </el-col>
           <el-col :span="16">
+
                <v-content>
                       <el-row>
 
@@ -95,6 +94,11 @@
                         Téléphone
                         </el-col>
                     </el-row>
+         
+         
+        
+
+
 <el-row>
     <el-col :span="10">
           <el-select
@@ -192,11 +196,10 @@
 <script>
 import authService from "../services/authService";
 
-import Navigation1 from '@/components/Navigation1.vue'
 import { ref } from 'vue'
 
 export default {
-   
+
 data() {
     return {
          sexeopt: [
@@ -237,6 +240,7 @@ async modifierProfile() {
         console.log("ya un probleme!");
       }
     },
+    
  async annulerModif() {
       try {
         this.profile = Object.assign({}, this.tempInfo);
@@ -263,6 +267,21 @@ async modifierProfile() {
         console.log(`ya un probleme dans la modif ! ${error}`);
       }
     },
+
+
+    /**********************************************UPDATE IMAGE***********************************************/
+     async updateImage() {
+      try {
+           const response = await authService.updateImage({
+               test:test,
+            
+           });
+       
+      } catch (error) {
+        console.log(`ya un probleme dans la modif ! ${error}`);
+      }
+    },
+
 
 },
 created() {

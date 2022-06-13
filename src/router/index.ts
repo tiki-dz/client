@@ -64,7 +64,7 @@ const router = createRouter({
       path: "/profile",
       name: "profile",
       component: ProfileVue,
-      //beforeEnter: CheckLogin,
+      beforeEnter: CheckLogin,
     },
     { 
       path: "/resetPassword", 
@@ -75,7 +75,7 @@ const router = createRouter({
       path: "/resetPassword1",
       name: "ResetPasswords1",
       component: ResetPassword1,
-      //beforeEnter: CheckLogin,
+      beforeEnter: CheckLogin,
     },
     {
       path: "/about",
@@ -113,7 +113,7 @@ function CheckLogin(to, from, next) {
     next();
   } else if (isAuthenticated) {
     next("/home");
-  } else next("/login");
+  } else next("/authentification");
 }
 
 export default router;

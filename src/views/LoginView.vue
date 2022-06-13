@@ -231,10 +231,11 @@ export default {
 
   methods: {
     async signup() {
-    
       
-      try {this.checkForm();
-       
+      try {
+        this.checkForm();
+           
+
           const response = await authService.SignupClient({
             firstName: this.ruleForm.firstName,
             lastName: this.ruleForm.lastName,
@@ -245,13 +246,26 @@ export default {
             city: this.ruleForm.city,
             phoneNumber: this.ruleForm.phoneNumber,
           });
-          console.log("hereeee");
+
           ElNotification({
             title: "Succès",
             message: "Utilisateur créé avec succès ",
             type: "success",
           });
+this.$router.push({ name: "code" });
           console.log(response.data);
+
+          
+          
+//localStorage.removeItem('x-access-token');
+       // localStorage.clear();
+
+        localStorage.setItem( "x-access-token",response.data.data.token);
+          router.push({
+    name: 'code',
+    params: {email:this.ruleForm.email,password:this.ruleForm.password
+    }
+});
        
       } catch (error) {
         ElNotification({
@@ -259,6 +273,8 @@ export default {
           message: "Impossible de créer l'utilisateur ",
           type: "error",
         });
+            console.log("signup4");
+
         console.log(error);
                  console.log("here");
 
@@ -291,6 +307,8 @@ export default {
             message: "This is a success message",
             type: "success",
           });
+                  this.$router.push({ name: "home" });
+
         }
       } catch (error) {
         ElNotification({
@@ -343,6 +361,7 @@ export default {
         t4 = "";
         document.getElementById("j4").innerHTML = t4;
       }
+      /*
  if (this.ruleForm.sexe  == "") {
         t5 = "Choisisez votre sexe!";
         document.getElementById("j5").innerHTML = t5;
@@ -350,7 +369,7 @@ export default {
         t5 = "";
         document.getElementById("j5").innerHTML = t5;
       }
-
+*/
       if (this.ruleForm.city  == "") {
         t6 = "Veuillez saisire votre ville !";
         document.getElementById("j6").innerHTML = t6;

@@ -18,7 +18,27 @@
                                 <li class="active"><a href="http://127.0.0.1:8090/"> Home</a></li>
                                 <li><a href="http://127.0.0.1:8090/profile">espace client</a></li>
                                 <li><a href="#partenaire">espace partenaire</a></li>
-                                <li><a href="http://127.0.0.1:8090/authentification"><img src="@/assets/userProfile.png" style="width:25px"></a></li>
+                                <li>
+                                 <el-dropdown>
+    <span class="el-dropdown-link">
+                               <img src="@/assets/userProfile.png" style="width:25px">
+      <el-icon class="el-icon--right">
+        <arrow-down />
+      </el-icon>
+    </span>
+    <template #dropdown>
+      <el-dropdown-menu>
+        <el-dropdown-item> <a href="http://127.0.0.1:8090/authentification" style="color:black">connexion</a></el-dropdown-item>
+        <el-dropdown-item  @click=" logout()" >Deconnexion</el-dropdown-item>
+       
+      </el-dropdown-menu>
+    </template>
+  </el-dropdown>
+</li>
+
+
+
+                              
                             </ul>
                         </nav>
                     </div>
@@ -36,6 +56,9 @@
 </template>
 
 <script>
+
+import { ElNotification } from "element-plus/es";
+
 import $ from "jquery";
 
 export default {
@@ -73,6 +96,27 @@ export default {
 
     },
     methods: {
+            logout() {
+                             
+
+      if (localStorage.getItem("LoggedUser")) {
+        localStorage.removeItem("LoggedUser");
+        ElNotification({
+          title: "Get back soon !",
+          message: "We are waiting for you",
+          type: "success",
+        });
+        this.$router.push({ name: "login" });
+
+      } else {
+        ElNotification({
+          title: "Warning",
+          message: "Server error",
+          type: "warning",
+        });
+      }
+    },
+
     }
 }
 

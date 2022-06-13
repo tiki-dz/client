@@ -9,13 +9,17 @@ export default {
     return Api().post("/client/signup", credantials);
   },
   VerifyCode(credantials) {
+
     return Api().post("/client/verifyCode", credantials , {
       headers: {
-        "x-access-token": localStorage.getItem("LoggedUser"),
+        "x-access-token": localStorage.getItem("x-access-token"),
       },
     });
   },
+
+
   Resendcode(credantials) {
+    console.log(credantials);
     return Api().post("/client/resendVerfication", credantials);
   },
   getProfile() {
@@ -38,11 +42,18 @@ export default {
   },
   
   ResetPw(credantials) {
+    console.log(credantials);
     return Api().put("/client/resetPassword", credantials , {
       headers: {
         "x-access-token": localStorage.getItem("LoggedUser"),
       },
   }
-  )}
+  )},
+  updateImage(credantials) {
+    console.log(credantials)
+    return Api().put("/client/updateimage" , credantials, {
+      headers: {
+        'x-access-token': localStorage.getItem("LoggedUser")}
+  })},
 
 }
