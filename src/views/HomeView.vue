@@ -101,8 +101,7 @@ export default {
               class="image"
               style="width: 100%; height: 250px; object-fit: cover"
             />
-            
-            
+  
             <div style="padding: 14px" padding="10px">
               <h4 v-if="event.name.length < 20">{{ event.name }}</h4>
               <h4 v-else>{{ event.name.substring(0, 19) }} ..</h4>

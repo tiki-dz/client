@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import AboutViewVue from "@/views/AboutView.vue";
 import LoginViewVue from "@/views/LoginView.vue";
 import CodeVerificationView from "@/views/CodeVerificationView.vue";
+import checkoutView from "@/views/checkoutView.vue";
 /*
 function CheckLogin(to, from, next) {
   let isAuthenticated = false;
@@ -39,22 +40,27 @@ const router = createRouter({
       name: "forgetPassword",
       component: ForgetPw,
     },
-    { 
-      path: "/resetPw", 
+    {
+      path: "/resetPw",
       name: "forgotpw2",
-      component: ForgetPw2
+      component: ForgetPw2,
     },
-    { 
-      path: "/validateTheEmail", 
-      name: "forgotpw1", 
-      component: ForgetPw1, 
-      props: true 
+    {
+      path: "/validateTheEmail",
+      name: "forgotpw1",
+      component: ForgetPw1,
+      props: true,
     },
     {
       path: "/authentification",
       name: "login",
       component: LoginViewVue,
       //beforeEnter: CheckLogin,
+    },
+    {
+      path: "/checkout",
+      name: "login",
+      component: checkoutView,
     },
     {
       path: "/about",
@@ -69,7 +75,7 @@ const router = createRouter({
       name: "notFound",
       component: NotFound,
     },
-   
+
     {
       path: "/code",
       name: "code",

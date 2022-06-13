@@ -11,6 +11,18 @@ export default defineConfig({
     port: 8090,
     // port: 3000,
     proxy: {
+      "/api/payment/purchase": {
+        target: "http://127.0.0.1:5003",
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/home/, ""),
+      },
+      "/api/admin/codepromo/check": {
+        target: "http://127.0.0.1:5003",
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/home/, ""),
+      },
       "/api/common/forgetPasswordSendVerificationAccount": {
         target: "http://127.0.0.1:5001",
         changeOrigin: true,
@@ -42,18 +54,18 @@ export default defineConfig({
         secure: false,
         rewrite: (path) => path.replace(/^\/home/, ""),
       },
-      
+
       "/api": {
         target: "http://127.0.0.1:5001",
         changeOrigin: true,
         secure: false,
+      },
     },
-  },},
+  },
   plugins: [vue(), vueJsx()],
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
-
 });
