@@ -5,4 +5,5 @@ export default {
     console.log("allevents");
     return Api().get('/admin/event?page='+credantials.page+'&size='+credantials.size, credantials)
   }
+  
 }
