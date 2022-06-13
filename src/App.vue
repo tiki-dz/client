@@ -7,9 +7,11 @@ import type { FormInstance } from 'element-plus'
 
 
 <template>
+
 <Navigation1 />
   <!-- <div class="circale1"></div>
   <div class="circale2"></div> -->
+  <br>
   <RouterView />
 </template>
 

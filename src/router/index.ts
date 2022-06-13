@@ -21,6 +21,7 @@ function CheckLogin(to, from, next) {
 */
 /* eslint-disable prettier/prettier */
 import HomeView from "@/views/HomeView.vue";
+import EventView from "@/views/EventDetail.vue";
 import ForgetPw1 from "@/views/forget Password/ForgetPw1.vue";
 import ForgetPw2 from "@/views/forget Password/ForgetPw2.vue";
 import NotFound from "@/views/NotFoundView.vue";
@@ -48,6 +49,12 @@ const router = createRouter({
       path: "/validateTheEmail", 
       name: "forgotpw1", 
       component: ForgetPw1, 
+      props: true 
+    },
+    { 
+      path: "/event", 
+      name: "event", 
+      component: EventView, 
       props: true 
     },
     {
