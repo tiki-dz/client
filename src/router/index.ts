@@ -78,16 +78,15 @@ const router = createRouter({
       component: () => import("../views/AboutView.vue"),
     },
     {
-      path: "/:pathMatch(.*)*",
-      name: "notFound",
-      component: NotFound,
-    },
-
-    {
       path: "/code",
       name: "code",
       component: CodeVerificationView,
       //beforeEnter: CheckLogin,
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "notFound",
+      component: NotFound,
     },
   ],
 });

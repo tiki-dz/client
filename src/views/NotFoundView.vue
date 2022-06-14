@@ -1,7 +1,11 @@
 <template>
   <!-- TODO: create the not found -->
   <!-- deviding screen into two columns: sidebar and content -->
-  <h1>Page Not found</h1>
+  <br>
+  <br>
+  <br>
+  <br>
+  <h1 style="text-align:center">Page Not found</h1>
 </template>
 
 <script>
