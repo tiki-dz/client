@@ -37,6 +37,12 @@ const router = createRouter({
       // beforeEnter: CheckLogin,
     },
     {
+      path: "/authentification",
+      name: "login",
+      component: LoginViewVue,
+      //beforeEnter: CheckLogin,
+    },
+    {
       path: "/forgetPw",
       name: "forgetPassword",
       component: ForgetPw,
@@ -59,14 +65,8 @@ const router = createRouter({
       props: true 
     },
     {
-      path: "/authentification",
-      name: "login",
-      component: LoginViewVue,
-      //beforeEnter: CheckLogin,
-    },
-    {
       path: "/checkout",
-      name: "login",
+      name: "checkout",
       component: checkoutView,
     },
     {
