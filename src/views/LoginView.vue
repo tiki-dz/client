@@ -193,6 +193,8 @@
 import authService from "../services/authService";
 import { ElNotification } from "element-plus/es";
 import("element-plus/es/components/notification/style/css");
+import "element-plus/es/components/loading/style/css";
+import { ElLoading } from "element-plus";
 export default {
   name: "HelloWorld",
   props: {
@@ -237,6 +239,11 @@ mounted: function () {
     
   methods: {
     async handleCurrentChange() {
+      const loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "&",
+      });
       let city = await authService.cities();
 
       for (let index = 0; index < city.data.data.length; index++) {
@@ -244,7 +251,7 @@ mounted: function () {
         this.options.push ({value: element.name, label: element.name});
       }
 
-      
+      loading.close()
     },
     async signup() {
       try {
