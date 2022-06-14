@@ -7,19 +7,19 @@
                 <!-- Logo -->
                 <div class="col-xl-2 col-lg-2 col-md-2 col-4">
                     <div class="logo">
-                        <a href="#"><img src="logo.png" alt="" width="80%" height="80%" ></a>
+                        <a href="#"><img src="logo.png" alt="" style="width:80%; height:80%" ></a>
                     </div>
                 </div>
                 <div class="col-xl-10 col-lg-10 col-md-10">
                     <!-- Main-menu -->
                     <div class="main-menu f-right d-none d-lg-block">
                         <nav>
-                            <ul id="navigation">    
-                                <li class="active"><a href="http://127.0.0.1:8090/"> Home</a></li>
-                                <li><a href="http://127.0.0.1:8090/authentification">espace client</a></li>
-                                <li><a href="#partenaire">espace partenaire</a></li>
-                                <li><a href="#panier">panier</a></li>
-                            </ul>
+                             <ul id="navigation">    
+                                <li :class="{ active: homeNav }" @click="switchClass('home')" ><router-link to="/"> Home</router-link></li>
+                                <li :class="{ active: espaceClientNav }" @click="switchClass('espaceClient')"><router-link to="/authentification">espace client</router-link></li>
+                                <li :class="{ active: espacePartnerNav }" @click="switchClass('espacePartner')"><a href="#partenaire">espace partenaire</a></li>
+                                <li :class="{ active: accountNav }" @click="switchClass('accountNav')"><router-link to="/profile">panier</router-link></li>
+                            </ul> 
                         </nav>
                     </div>
                 </div>
@@ -39,40 +39,61 @@
 import $ from "jquery";
 
 export default {
-    data: () => ({
-      // ici data
-    }),
-    mounted() {
-
-
-/* 7.  Custom Sticky Menu  */
-    $(window).on('scroll', function () {
-      var scroll = $(window).scrollTop();
-      if (scroll < 245) {
-        $(".header-sticky").removeClass("sticky-bar");
-      } else {
-        $(".header-sticky").addClass("sticky-bar");
+    data() {
+      return{
+        homeNav: true,
+      espaceClientNav: false,
+      espacePartnerNav: false,
+      accountNav: false
       }
-    });
-
-    $(window).on('scroll', function () {
-      var scroll = $(window).scrollTop();
-      if (scroll < 245) {
-          $(".header-sticky").removeClass("sticky");
-      } else {
-          $(".header-sticky").addClass("sticky");
-          $('#navigation').slicknav();
-      }
-    });
-
-
-
-
-
-
-
     },
+  //     mounted() {
+
+
+  // /* 7.  Custom Sticky Menu  */
+      
+
+
+
+
+
+
+
+  //     },
     methods: {
+      switchClass(element){
+        switch (element) {
+          case "home":
+            this.homeNav= true
+            this.espaceClientNav= false
+            this.espacePartnerNav= false
+            this.accountNav= false
+            break;
+          case "espaceClient":
+            this.homeNav= false
+            this.espaceClientNav= true
+            this.espacePartnerNav= false
+            this.accountNav= false
+            break;
+          case "espacePartner":
+            this.homeNav= false
+            this.espaceClientNav= false
+            this.espacePartnerNav= true
+            this.accountNav= false
+            break;
+          case "accountNav":
+            this.homeNav= false
+            this.espaceClientNav= false
+            this.espacePartnerNav= false
+            this.accountNav= true
+            break;
+        
+          default:
+            break;
+        }
+          console.log("homenav",this.homeNav)
+
+      }
     }
 }
 
