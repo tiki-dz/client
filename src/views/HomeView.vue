@@ -9,11 +9,13 @@ export default {
       currentPage: 1,
       Allevents: [],
       pages: 0,
-      pageSize: 5,
+      pageSize: 12,
     };
   },
   mounted: function () {
+    
     this.handleCurrentChange(1);
+    
   },
   methods: {
     async handleCurrentChange(pageNumber) {
@@ -31,7 +33,6 @@ export default {
       console.log(events);
       this.Allevents = events.data.events;
       this.pages = events.data.totalItems;
-      console.log(this.pages);
     },
     showEvent(event) {
       sessionStorage.setItem(
@@ -47,7 +48,7 @@ export default {
         name: "event",
         params: { id: JSON.stringify(event) },
       });
-            loading.close()
+       loading.close()
 
     },
   },

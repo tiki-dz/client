@@ -1,5 +1,5 @@
 <template>
-
+<br>
 <div style="margin:20px;margin-top:100px;border-radius:20px">
   <el-row justify="center"  >
       <el-col :span="18"><el-row justify="space-around">
@@ -78,6 +78,8 @@ export default {
     };
   },
    created() {
+    window.scrollTo(0,0);
+
     if (sessionStorage.getItem("currentEvent") !== null){
       this.event = JSON.parse(sessionStorage.getItem("currentEvent"));
       this.tags="#"+this.event.Tags[0].name  
@@ -88,7 +90,6 @@ export default {
       for (let i = 1; i < this.event.SubCategories.length; i++) {
         this.subcategories+= (" , "+this.event.SubCategories[i].name)   
       }
-
     }
     else this.$router.push("/");
 },
