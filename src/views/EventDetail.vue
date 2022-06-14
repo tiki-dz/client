@@ -4,7 +4,7 @@
   <el-row justify="center"  >
       <el-col :span="18"><el-row justify="space-around">
 
-    <el-col class="elCol" :span="11" style="padding:2%">  <img v-bind:src="event.eventImage"  style="height:250px; width:100%; border-radius:5px" >
+    <el-col class="elCol" :span="11" style="padding:2%">  <img v-bind:src="event.eventImage"  style="height:250px; width:100%; border-radius:5px; object-fit: cover" >
     <h1 style="margin-top:40px">N°{{event.idEvent}} : {{event.name}} </h1>
     <br>
     <span >{{event.description}}</span>

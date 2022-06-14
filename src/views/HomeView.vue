@@ -156,7 +156,7 @@ export default {
         </el-col>
       </el-row>
     </el-main>
-    <el-pagination
+    <el-pagination style="margin:0 auto"
             v-model:currentPage="currentPage"
             v-model:page-size="pageSize"
             :small="small"
