@@ -14,4 +14,7 @@ export default {
   Resendcode(credantials) {
     return Api().post("/client/resendVerfication", credantials);
   },
+  cities() {
+    return Api().get('/autre/cities')
+  }
 }

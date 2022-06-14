@@ -130,13 +130,20 @@
             <el-col :span="2"></el-col>
 
             <el-col :span="10">
-              <el-input
+              <el-select
                 id="city"
                 v-model="ruleForm.city"
                 placeholder="ville"
-                
+                filterable
                 class="input-field"
-              ></el-input>
+              >
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+              </el-select>
               <p id="j6"></p>
             </el-col>
           </el-row>
@@ -191,6 +198,8 @@ export default {
   },
   data() {
     return {
+      options: [
+        ],
       ruleForm: {
         search: "",
         firstName: "",
@@ -220,8 +229,21 @@ export default {
       },
     };
   },
-
+mounted: function () {
+    this.handleCurrentChange();
+  },
+    
   methods: {
+    async handleCurrentChange() {
+      let city = await authService.cities();
+
+      for (let index = 0; index < city.data.data.length; index++) {
+        const element = city.data.data[index];
+        this.options.push ({value: element.name, label: element.name});
+      }
+
+      
+    },
     async signup() {
       try {
         if (this.ruleForm.password == this.ruleForm.password2) {

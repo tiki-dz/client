@@ -1,13 +1,15 @@
 <script>
 import { ref } from "vue";
 import homeService from "../services/homeService";
+import "element-plus/es/components/loading/style/css";
+import { ElLoading } from "element-plus";
 export default {
   data() {
     return {
       currentPage: 1,
       Allevents: [],
-      pages: 1,
-      pageSize: 50,
+      pages: 0,
+      pageSize: 5,
     };
   },
   mounted: function () {
@@ -16,14 +18,37 @@ export default {
   methods: {
     async handleCurrentChange(pageNumber) {
       console.log("events");
+      const loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "&",
+      });
       let events = await homeService.AllEvents({
         page: pageNumber - 1,
         size: this.pageSize,
       });
+      loading.close()
       console.log(events);
       this.Allevents = events.data.events;
       this.pages = events.data.totalItems;
       console.log(this.pages);
+    },
+    showEvent(event) {
+      sessionStorage.setItem(
+        "currentEvent",
+        JSON.stringify(this.Allevents[JSON.stringify(event)])
+      );
+      const loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+      this.$router.push({
+        name: "event",
+        params: { id: JSON.stringify(event) },
+      });
+            loading.close()
+
     },
   },
 };
@@ -87,7 +112,7 @@ export default {
           <el-card
             class="card"
             :body-style="{ padding: '0px' }"
-            style="border-radius: 10px"
+            style="border-radius: 10px" @click="showEvent(index)"
           >
           
             <el-tag v-if="event.SubCategories.length > 0 && event.SubCategories[0].Category.name === 'SPORT'" round :key="event.SubCategories[0].Category.name" class="mx-1 category-tag" effect="dark" style="background-color:black;border-color: black;" > {{event.SubCategories[0].Category.name}} </el-tag>
@@ -130,6 +155,16 @@ export default {
         </el-col>
       </el-row>
     </el-main>
+    <el-pagination
+            v-model:currentPage="currentPage"
+            v-model:page-size="pageSize"
+            :small="small"
+            :disabled="disabled"
+            :background="background"
+            layout="prev, pager, next, jumper"
+            :total="pages"
+            @current-change="handleCurrentChange"
+          />
   </el-container>
   <section class="py-6">
     <hr />
