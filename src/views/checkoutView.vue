@@ -177,11 +177,11 @@ export default {
         <p >{{eventDescription}}</p>
         <br>
         <div style="display:flex;justify-content:space-between">
-<p>Du  {{formatDate(this.startDate)}} au {{formatDate(this.endDate)}} </p>
+<p>Du  <b>{{formatDate(this.startDate)}} </b> au <b> {{formatDate(this.endDate)}} </b></p>
          <p  style="font-weight:bold;color:rgba(252, 134, 44, 0.991);font-size:20px;text-align:right;padding-right:30px">{{price}} DA</p>
         </div>
         <p>Organisé par:
-        <span style="">{{organiser}}</span>
+        <span style=""><b>{{organiser}}</b></span>
         </p>
        </div>
     </div>
@@ -277,5 +277,8 @@ export default {
 *:before {
   box-sizing: border-box;
 }
-
+b{
+  font-weight: 400;
+  color: rgb(33, 33, 56);
+}
 </style>
