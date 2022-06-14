@@ -184,6 +184,8 @@
       </div>
     </div>
     <div class="circle1"></div>
+      <br>
+
   </div>
 </template>
 

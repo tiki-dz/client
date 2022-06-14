@@ -47,7 +47,7 @@ export default {
         name: "event",
         params: { id: JSON.stringify(event) },
       });
-            loading.close()
+       loading.close()
 
     },
   },
