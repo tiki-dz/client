@@ -15,10 +15,10 @@
                     <div class="main-menu f-right d-none d-lg-block">
                         <nav>
                              <ul id="navigation">    
-                                <li :class="{ active: homeNav }" @click="switchClass('home')" ><router-link to="/"> Home</router-link></li>
-                                <li :class="{ active: espaceClientNav }" @click="switchClass('espaceClient')"><router-link to="/authentification">espace client</router-link></li>
-                                <li :class="{ active: espacePartnerNav }" @click="switchClass('espacePartner')"><a href="#partenaire">espace partenaire</a></li>
-                                <li :class="{ active: accountNav }" @click="switchClass('accountNav')"><router-link to="/profile">panier</router-link></li>
+                                <li :class="{ active: homeNav }" @click="switchClass('home')" ><router-link to="/"> Acceuil</router-link></li>
+                                <li :class="{ active: espaceClientNav }" @click="switchClass('espaceClient')"><router-link to="/profile">espace client</router-link></li>
+                                <!-- <li :class="{ active: espacePartnerNav }" @click="switchClass('espacePartner')"><a href="#partenaire">espace partenaire</a></li> -->
+                                <!-- <li :class="{ active: accountNav }" @click="switchClass('accountNav')"><router-link to="/profile">panier</router-link></li> -->
                                 <li>
                                  <el-dropdown>
     <span class="el-dropdown-link">
@@ -29,8 +29,8 @@
     </span>
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item> <a href="http://127.0.0.1:8090/authentification" style="color:black">connexion</a></el-dropdown-item>
-        <el-dropdown-item  @click=" logout()" >Deconnexion</el-dropdown-item>
+        <el-dropdown-item :class="{ hide: logged}"> <a href="http://127.0.0.1:8090/authentification"  style="color:black">Se connecter</a></el-dropdown-item>
+        <el-dropdown-item  @click=" logout()" :class="{ hide: !logged }" >Se déconnecter</el-dropdown-item>
        
       </el-dropdown-menu>
     </template>
@@ -65,25 +65,22 @@ import $ from "jquery";
 export default {
     data() {
       return{
+        logged:false,
         homeNav: true,
       espaceClientNav: false,
       espacePartnerNav: false,
       accountNav: false
       }
     },
-  //     mounted() {
+      created() {
 
 
-  // /* 7.  Custom Sticky Menu  */
-      
-
-
+if(localStorage.getItem("LoggedUser")) this.logged=true
 
 
 
 
-
-  //     },
+      },
     methods: {
       switchClass(element){
         switch (element) {
@@ -118,18 +115,18 @@ export default {
           console.log("homenav",this.homeNav)
 
       },
-            logout() {
+       logout() {
                              
 
       if (localStorage.getItem("LoggedUser")) {
         localStorage.removeItem("LoggedUser");
         ElNotification({
-          title: "Get back soon !",
-          message: "We are waiting for you",
+          title: "Au revoir!",
+          message: "A bientot",
           type: "success",
         });
         this.$router.push({ name: "login" });
-
+        this.logged=false
       } else {
         ElNotification({
           title: "Warning",
@@ -158,4 +155,7 @@ export default {
     @import "@/assets/css/slick.css";
     @import "@/assets/css/nice-select.css";
     @import "@/assets/css/style.css";
+    .hide{
+      display: none !important;
+    }
 </style>

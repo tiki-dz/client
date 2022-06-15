@@ -44,23 +44,26 @@ const router = createRouter({
       path: "/authentification",
       name: "login",
       component: LoginViewVue,
-      //beforeEnter: CheckLogin,
+      beforeEnter: CheckLogin,
     },
     {
       path: "/forgetPw",
       name: "forgetPassword",
       component: ForgetPw,
+      beforeEnter: CheckLogin,
     },
     {
       path: "/resetPw",
       name: "forgotpw2",
       component: ForgetPw2,
+      beforeEnter: CheckLogin,
     },
     {
       path: "/validateTheEmail",
       name: "forgotpw1",
       component: ForgetPw1,
       props: true,
+      beforeEnter: CheckLogin,
     },
     { 
       path: "/event", 
@@ -71,7 +74,9 @@ const router = createRouter({
     {
       path: "/checkout",
       name: "checkout",
-      component: checkoutView
+      component: checkoutView,
+      beforeEnter: CheckLogin,
+
     },
      { path: "/profile",
       name: "profile",
@@ -82,6 +87,7 @@ const router = createRouter({
       path: "/resetPassword", 
       name: "ResetPwView",
       component: ResetPwView,
+      beforeEnter: CheckLogin,
     },
     {
       path: "/resetPassword1",
@@ -122,7 +128,7 @@ function CheckLogin(to, from, next) {
   } else if (to.name == "login" && !isAuthenticated) {
     next();
   } else if (isAuthenticated) {
-    next("/home");
+    next("/");
   } else next("/authentification");
 }
 

@@ -8,25 +8,22 @@
           <el-card shadow="always" class="profile"> 
               <el-row>
                 <el-col :span="7">
-                    <!-- <div id="photo" >   
-                     <img :src="profile.profilePicture" class="image" />
-                    </div> -->
-                    <label for="upload">Event Image</label>
+                    <div id="photo" >   
+                     <img :src="src" class="image" />
+                    </div>
                   <br /><br />
                   <div class="images">
                     <img id="upload1" src="" alt="" />
-                    <div class="overlay">
-                      <button
+                      <!-- <button 
                         type="button"
                         :disabled="Disabled"
                         @click="upload()"
                         class="icon"
                       >
                         <i class="fa fa-edit"></i>
-                      </button>
-                    </div>
+                      </button> -->
                   </div>
-                  <el-upload
+                  <el-upload style="margin-left:  25%"
                     name="upload"
                     class="upload-demo uploads"
                     drag
@@ -37,24 +34,19 @@
                     :on-preview="handlePictureCardPreview"
                     :on-remove="handleRemove"
                     :limit="1"
-                    :disabled="Disabled"
                   >
-                    <i class="fa-solid fa-upload"></i>
-                    <div class="el-upload__text">
-                      faire glisser une image ou <em>cliquer pour choisir</em>
+                <br> <br>
+                    <div class="el-upload__text" >
+                      faire glisser une image ou <em>cliquer pour modifier</em>
                     </div>
-                    <template #tip>
-                      <div class="el-upload__tip">
-                        jpg/png files with a size less than 500kb
-                      </div>
-                    </template>
+                    
                   </el-upload>
                   <el-dialog v-model="dialogVisible">
                     <img w-full :src="dialogImageUrl" alt="Preview Image" />
                   </el-dialog>
                   <br /><br />
                      <br/><br/>
-                     <el-button type="primary" plain class="edit">Modifier</el-button>
+                     <el-button type="primary" plain class="edit" :disabled="eventList.length == 0" @click="updateImage()">Modifier</el-button>
                      <br/><br/>
                      <a href="http://127.0.0.1:8090/resetPassword1" id="reinitialiser"> <i class="fa-solid fa-pen-to-square"></i>  Renitialiser le mot de passe</a>
              </el-col>
@@ -237,14 +229,18 @@
 
 <script>
 import authService from "../services/authService";
-
+import { ElNotification } from "element-plus/es";
+import("element-plus/es/components/notification/style/css");
+import "element-plus/es/components/loading/style/css";
+import { ElLoading } from "element-plus";
 import { ref } from 'vue'
 
 export default {
 
 data() {
     return {
-      eventList:[],
+      src:"",
+         eventList:[],
          sexeopt: [
         {
           value: 0,
@@ -274,13 +270,29 @@ data() {
       $(".uploads").show();
     },
  async getProfile(){
+        let loading
+
 try {
+   loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "&",
+      });
        let response = await authService.getProfile();
         this.profile = response.data.data.User;
                 console.log("ça fonctionne !");
+               this.src= this.profile.profilePicture
 
+loading.close()
       } catch (error) {
+                        ElNotification({
+            title: "Error",
+            message: "Profile non trouvé  ",
+            type: "error",
+          });
        console.log("ya un probleme!")
+       loading.close()
+
       }
     },
   
@@ -305,34 +317,55 @@ async modifierProfile() {
       }
     },
    async savePersInfo() {
+     let loading
       try {
 
 
-        this.tempInfo = {firstName:this.profile.firstName,lastName:this.profile.lastName,city:this.profile.city,sexe:(this.profile.sexe === 1 ? "Homme" : "Femme"),phoneNumber:this.profile.phoneNumber};
-
+        this.tempInfo = {firstName:this.profile.firstName,lastName:this.profile.lastName,city:this.profile.city,sexe:(this.profile.sexe === 1 ? "Homme" : "Femme"),phoneNumber: "0"+this.profile.phoneNumber,};
+        
         this.Disabled = true;
         console.log("try",this.tempInfo);
         console.log("sauvgarde!");
         console.log(this.profile);
-
+  loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "&",
+      });
         const response = await authService.updateProfile(this.tempInfo);
         console.log(response.data);
+        loading.close()
       } catch (error) {
         console.log(`ya un probleme dans la modif ! ${error}`);
+        loading.close()
       }
     },
 
 
     /**********************************************UPDATE IMAGE***********************************************/
      async updateImage() {
+       let loading
       try {
-           const response = await authService.updateImage({
-               test:test,
-            
-           });
+          
+          if(this.eventList.length){
+            loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "&",
+      });
+             let formData = new FormData();
+              formData.append("updateimage", this.eventList[0].raw);
+                   const response = await authService.updateImage(formData);
+                    loading.close()
+location.reload()
+
+        }
+
+          
        
       } catch (error) {
         console.log(`ya un probleme dans la modif ! ${error}`);
+        loading.close()
       }
     },
 
@@ -375,14 +408,18 @@ span{
     font-family: sans-serif;
 }
 #photo{
-    width: 8rem;
-    height: 8rem;
+    width: 15rem;
+    height: 15rem;
   border-radius :50%;
   border:2px solid #2B044D;
-  padding:20px;
-  margin-left: 30%;
-  margin-top: 20%;
+  margin : 0 auto;
+  margin-top: 40px
 
+}
+#photo img{
+    border-radius :50%;
+width:100%;
+height:100%
 }
 .detail{
     margin-top: 2%;
@@ -397,7 +434,8 @@ span{
     color: #2B044D;
 }
 
-.hide{
-  display: none;
-}
+ .hide .el-upload,
+.hide .el-upload-dragger {
+  display: none !important;
+} 
 </style>

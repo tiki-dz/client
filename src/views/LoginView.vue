@@ -290,11 +290,11 @@ mounted: function () {
           });
        
       } catch (error) {
-        // ElNotification({
-        //   title: "Echec",
-        //   message: "Impossible de créer l'utilisateur ",
-        //   type: "error",
-        // });
+        ElNotification({
+          title: "Echec",
+          message: "Impossible de créer l'utilisateur ",
+          type: "error",
+        });
         //console.log(error);
 
       }

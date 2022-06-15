@@ -58,7 +58,7 @@ export default {
         console.log(response.data.data);
 
         ElNotification({
-          title: "code correct",
+          title: "Validé!",
           message: "code correct ",
           type: "success",
         });
@@ -67,7 +67,7 @@ export default {
       } catch (error) {
          ElNotification({
           title: "Erreur",
-          message: "Vuillez resseyer ",
+          message: "Veuillez ressayer ",
           type: "error",
         });
         console.log(error);

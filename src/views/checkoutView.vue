@@ -89,15 +89,16 @@ export default {
     this.endDate = event.data.data.endDate; 
     },
     async achat() {
-
+      let loading
+        try{
         if(this.codePromoApplied) {
             console.log("from heree");
-                     const loading = ElLoading.service({
-        lock: true,
-        text: "Chargement",
-        background: "rgba(0, 0, 0, 0.7)",
-      });
-      const result =    await  homeService.purchase({
+                      loading = ElLoading.service({
+                    lock: true,
+                    text: "Chargement",
+                    background: "rgba(0, 0, 0, 0.7)",
+                  });
+             const result =    await  homeService.purchase({
             data: this.list, 
             event : {
                 id: this.idEvent, 
@@ -109,23 +110,39 @@ export default {
          window.open( result.data.url, '_blank');
         }
         }else {
-                     const loading = ElLoading.service({
-        lock: true,
-        text: "Chargement",
-        background: "rgba(0, 0, 0, 0.7)",
-      });
+             loading = ElLoading.service({
+            lock: true,
+            text: "Chargement",
+            background: "rgba(0, 0, 0, 0.7)",
+            });
       
-   const result = await homeService.purchase({
-            data: this.list, 
-            event : {
+            const result = await homeService.purchase({
+              data: this.list, 
+              event : {
                 id: this.idEvent, 
-            }, 
-        })
-        loading.close();
+              }, 
+            })
+           loading.close();
       if(result.status == 200) {
-                            window.open( result.data.url, '_blank');
-        } 
+         window.open( result.data.url, '_blank');
+        } else{
+           ElNotification({
+                title: "Erreur",
+                message: "Echec d'achat ",
+                type: "error",
+              });
         }
+        }
+        }catch(e){
+           loading.close();
+           ElNotification({
+                title: "Erreur",
+                message: "Echec d'achat au serveur",
+                type: "error",
+              });
+            location.reload
+        }
+        
     }, 
     async removeItemUser(index) {
      
