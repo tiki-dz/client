@@ -50,13 +50,11 @@ const router = createRouter({
       path: "/forgetPw",
       name: "forgetPassword",
       component: ForgetPw,
-      beforeEnter: CheckLogin,
     },
     {
       path: "/resetPw",
       name: "forgotpw2",
       component: ForgetPw2,
-      beforeEnter: CheckLogin,
     },
     {
       path: "/validateTheEmail",

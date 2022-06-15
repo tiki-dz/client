@@ -2,13 +2,13 @@
   <div class="full-page">
     <div id="login-form" class="login-page">
     <br/><br/><br/><br/><br/><br/><br/>
-      <div class="form-box">
-        <div class="button-box">
-          <div id="btn"></div>
-          <button type="button" @click="login()" class="toggle-btn">
+      <div class="form-box" >
+        <div class="button-box" >
+          <div id="btn" ></div>
+          <button type="button" style="padding-right:20px" @click="login()" class="toggle-btn">
             Connexion
           </button>
-          <button type="button" @click="register()" class="toggle-btn">
+          <button type="button"  @click="register()" class="toggle-btn">
             Inscription
           </button>
         </div>
@@ -35,7 +35,7 @@
                     
               <a href="http://127.0.0.1:8090/forgetpw" id="mob" class="forgetpw" >Mot de passe oublier?</a>
               <button type="submit" class="submit-btn" @click="connexion()">
-                Connexion
+                Se Connecter
               </button>
             </form>
           </el-col>
@@ -423,7 +423,7 @@ mounted: function () {
     register() {
       document.getElementById("login").style.left = "-290px";
       document.getElementById("register").style.left = "-50%";
-      document.getElementById("btn").style.left = "110px";
+      document.getElementById("btn").style.left = "120px";
     },
     login() {
       document.getElementById("login").style.left = "12%";
@@ -481,15 +481,15 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
 
 
 .button-box {
-  width: 220px;
-  margin: 35px auto;
+  width: 250px;
+  margin: 40px auto;
   position: relative;
   box-shadow: 0 0 20px 9px #ffffff42;
   border-radius: 30px;
 
 }
 .toggle-btn {
-  padding: 10px 10px;
+  padding: 10px 13px;
   cursor: pointer;
   background: transparent;
   border: 0;
@@ -497,8 +497,8 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   position: relative;
   color: white;
   font-size: medium;
-  margin-left: 5%;
-  width: 45%;
+  margin-left: 3%;
+  width: 47%;
 
 }
 
@@ -506,7 +506,7 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   top: 0;
   left: 0;
   position: absolute;
-  width: 120px;
+  width: 130px;
   height: 100%;
   background: #fea82f;
   border-radius: 30px;
@@ -585,17 +585,17 @@ input {
 }
 @keyframes example {
   0% {
-    background-color: rgb(192, 147, 12);
+    background-color: rgb(230, 179, 128);
     left: 0px;
     top: 60px;
   }
   10% {
-    background-color: rgb(255, 200, 0);
+    background-color: rgba(231, 198, 64, 0.827);
     left: 200px;
     top: 70px;
   }
   20% {
-    background-color: rgb(171, 140, 39);
+    background-color: rgb(205, 174, 71);
     left: 200px;
     top: 75px;
   }
@@ -625,7 +625,7 @@ input {
     top: 75px;
   }
   80% {
-    background-color: rgb(171, 140, 39);
+    background-color: rgb(156, 139, 83);
     left: 200px;
     top: 80px;
   }

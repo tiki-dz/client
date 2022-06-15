@@ -1,6 +1,6 @@
 <template>
   <!-- deviding screen into two columns: sidebar and content -->
-  <section class="py-8" style="background: #ffbc80; min-height: 100vh">
+  <section class="py-8" style="background: #ffbc80; min-height: 100vh; overflow:hidden  ">
     <el-row :gutter="2">
       <el-col :xs="1" :sm="2" :md="4" :lg="6" :xl="8"> </el-col>
       <el-col :xs="22" :sm="20" :md="16" :lg="12" :xl="8">
@@ -13,7 +13,7 @@
           <br />
           <p>
             Ne vous inquiétez pas! remplissez simplement votre e-mail et nous vous
-            enverrons un lien pour réinitialiser votre mot de passe.
+            envoyons un lien pour réinitialiser votre mot de passe.
           </p>
           <!-- Don't worry! just fill in your mail and we will send you a link to reset your
             password.  -->
@@ -51,10 +51,10 @@
                   type="primary"
                   @click="submitForm(formRef)"
                   style="margin: auto"
-                  >Submit</el-button
+                  >Confirmer</el-button
                 >&nbsp;
                 <el-button @click="resetForm(formRef)" style="margin: auto"
-                  >Reset</el-button
+                  >Resaisir</el-button
                 >
               </div>
             </el-form-item>
