@@ -97,7 +97,7 @@ export default {
         text: "Chargement",
         background: "rgba(0, 0, 0, 0.7)",
       });
-    const result =    await  homeService.purchase({
+      const result =    await  homeService.purchase({
             data: this.list, 
             event : {
                 id: this.idEvent, 
@@ -115,7 +115,7 @@ export default {
         background: "rgba(0, 0, 0, 0.7)",
       });
       
-   const result = await     homeService.purchase({
+   const result = await homeService.purchase({
             data: this.list, 
             event : {
                 id: this.idEvent, 
@@ -129,8 +129,8 @@ export default {
     }, 
     async removeItemUser(index) {
      
-  this.list.splice(index, 1);
-     ElNotification({
+        this.list.splice(index, 1);
+          ElNotification({
                 title: "Succées",
                 message: "Utilisateur supprimé avec succées",
                 type: "success",

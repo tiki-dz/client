@@ -13,5 +13,12 @@ export default {
     return Api().put("common/forgetPasswordChangePasswordAccount", credantials , {
       headers: {
         'x-access-token': sessionStorage.getItem("forgetPWtoken")}
-  })}
+  })},
+  ResetPw(credantials) {
+    return Api().put("/client/resetPassword", credantials , {
+      headers: {
+        "x-access-token": localStorage.getItem("LoggedUser"),
+      },
+  }
+  )}
 }

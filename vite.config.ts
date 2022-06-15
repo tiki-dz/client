@@ -29,6 +29,18 @@ export default defineConfig({
         secure: false,
         rewrite: (path) => path.replace(/^\/home/, ""),
       },
+      "/api/client/profile": {
+        target: "http://127.0.0.1:5001",
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/home/, ""),
+      },
+      "/api/client/verifyCode": {
+        target: "http://127.0.0.1:5001",
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/home/, ""),
+      },
       "/api/admin/event**": {
         target: "http://127.0.0.1:5002",
         changeOrigin: true,
@@ -54,13 +66,13 @@ export default defineConfig({
         secure: false,
         rewrite: (path) => path.replace(/^\/home/, ""),
       },
-
       "/api": {
         target: "http://127.0.0.1:5001",
         changeOrigin: true,
         secure: false,
       },
     },
+   
   },
   plugins: [vue(), vueJsx()],
   resolve: {

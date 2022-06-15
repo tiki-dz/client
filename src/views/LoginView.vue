@@ -14,7 +14,7 @@
         </div>
         <el-row id="login">
           <el-col :span="12">
-            <form class="input-group-login">
+            <form class="input-group-login" @submit.prevent>
               <el-input
                 type="email"
                 class="input-field"
@@ -32,6 +32,7 @@
                 required
                 show-password
               />
+                    
               <a href="http://127.0.0.1:8090/forgetpw" id="mob" class="forgetpw" >Mot de passe oublier?</a>
               <button type="submit" class="submit-btn" @click="connexion()">
                 Connexion
@@ -57,15 +58,14 @@
           </el-col>
         </el-row>
 
-        <form id="register" class="input-group-register">
+        <form id="register" class="input-group-register" @submit.prevent>
           <el-row>
             <el-col :span="10">
               <el-input
                 v-model="ruleForm.firstName"
                 placeholder="Prenom"
-                
                 class="input-field"
-              ></el-input>
+              />
               <p id="j1"></p>
             </el-col>
             <el-col :span="2"></el-col>
@@ -74,9 +74,10 @@
               <el-input
                 v-model="ruleForm.lastName"
                 placeholder="Nom"
-                
+                                style=" width: 190px;"
+
                 class="input-field"
-              ></el-input>
+              />
               <p id="j2"></p>
             </el-col>
           </el-row>
@@ -89,14 +90,14 @@
                 v-model="ruleForm.phoneNumber"
                 placeholder="numero de telephone"
                 class="input-field"
-              ></el-input>
+              />
               <p id="j3"></p>
             </el-col>
             <el-col :span="2"></el-col>
 
             <el-col :span="10">
               <el-date-picker
-                style="margin-top:9%;width: 180px;"
+                style="width: 190px;margin-top:7%;"
                 id="birthDate"
                 v-model="ruleForm.birthDate"
                 type="date"
@@ -105,7 +106,7 @@
                 class="input-field"
               >
               </el-date-picker>
-              <p id="j4" style="margin-top:5%;"></p>
+              <p id="j4" style="margin-top:-1px;"></p>
               
             </el-col>
           </el-row>
@@ -154,7 +155,7 @@
                 v-model="ruleForm.email"
                 placeholder="email"
                 class="input-field"
-              ></el-input>
+              />
               <p id="j7"></p>
             </el-col>
             <el-col :span="2"></el-col>
@@ -167,7 +168,9 @@
                 v-model="ruleForm.password"
                 show-password
                 class="input-field"
-              ></el-input>
+                style=" width: 190px;"
+              />
+               
               <p id="j8"></p>
             </el-col>
           </el-row>
@@ -175,8 +178,10 @@
           <button
             type="submit"
             class="submit-btn"
-            @click="checkForm()"
+           
             style="margin-top: 5%"
+            @click="signup()"
+           
           >
             S'inscrire
           </button>
@@ -215,6 +220,7 @@ export default {
         phoneNumber: "",
         sexe: "",
         city: "",
+       
         errors: [],
       },
       sexeopt: [
@@ -230,6 +236,7 @@ export default {
       form: {
         email: "",
         password: "",
+         fcm_token:"hello",
       },
     };
   },
@@ -254,8 +261,11 @@ mounted: function () {
       loading.close()
     },
     async signup() {
+      
       try {
-        if (this.ruleForm.password == this.ruleForm.password2) {
+        this.checkForm();
+           
+
           const response = await authService.SignupClient({
             firstName: this.ruleForm.firstName,
             lastName: this.ruleForm.lastName,
@@ -266,60 +276,70 @@ mounted: function () {
             city: this.ruleForm.city,
             phoneNumber: this.ruleForm.phoneNumber,
           });
+          this.$router.push({ name: "code" });
+            localStorage.removeItem('x-access-token');
+            localStorage.setItem( "x-access-token",response.data.data.token);
           ElNotification({
             title: "Succès",
             message: "Utilisateur créé avec succès ",
             type: "success",
           });
-          console.log(response.data);
-        } else {
-          this.error = "problem in confirmation of the git fepassword";
-        }
+
+          router.push({
+            name: 'code',
+          });
+       
       } catch (error) {
-        ElNotification({
-          title: "Echec",
-          message: "Impossible de créer l'utilisateur ",
-          type: "error",
-        });
-        console.log(error);
+        // ElNotification({
+        //   title: "Echec",
+        //   message: "Impossible de créer l'utilisateur ",
+        //   type: "error",
+        // });
+        //console.log(error);
+
       }
     },
     async connexion() {
+      
       try {
+
         const account = await authService.Login({
           email: this.form.email.toLowerCase(),
           password: this.form.password,
+          fcm_token:"hello",
         });
-
         console.log(account.data);
+        console.log(account.data.success);
         if (account.data.success == false) {
           ElNotification({
             title: "Error",
             message: "Error to sign in :" + account.data.message,
             type: "error",
           });
+          console.log("connexioon");
         } else {
           let x = account.data.data.token;
-          let user = account.data.data.data.User;
+          let user = account.data.data.User;
           localStorage.setItem("LoggedUser", x);
-
           ElNotification({
             title: "Success",
             message: "This is a success message",
             type: "success",
           });
+                  this.$router.push({ name: "home" });
+
         }
       } catch (error) {
         ElNotification({
           title: "Erreur de connexion",
-          message: " Veuillez réessayer ",
+          message: " Votre compte peut etre desactiver ou n existe pas ",
           type: "warning",
         });
       }
     },
     checkForm() {
       
-      let t1, t2, t3, t4, t5, t6, t7, t8;
+      let t1, t2, t3, t4, t5, t6, t7,t8;
 
       if (this.ruleForm.firstName == "") {
         t1 = "Veuillez entrer le nom !";
@@ -341,8 +361,8 @@ mounted: function () {
        if (this.ruleForm.phoneNumber == "") {
         t3 = "veuillez saisire le numero de telephone  !";
         document.getElementById("j3").innerHTML = t3;
-      } else if (this.ruleForm.phoneNumber > 10) {
-        t3 = "le numero de telephone ne doit pas etre plus de 14 chiffres !";
+      } else if (this.ruleForm.phoneNumber <10) {
+        t3 = "le numero de telephone ne doit pas etre plus de 10 chiffres !";
         document.getElementById("j3").innerHTML = t3;
       } else {
         t3 = "";
@@ -352,7 +372,7 @@ mounted: function () {
 
 
       if (
-        
+         
         this.ruleForm.birthDate == "") {
         t4 = "Veuillez selectionner la date !";
         document.getElementById("j4").innerHTML = t4;
@@ -360,8 +380,15 @@ mounted: function () {
         t4 = "";
         document.getElementById("j4").innerHTML = t4;
       }
-
-
+      /*
+ if (this.ruleForm.sexe  == "") {
+        t5 = "Choisisez votre sexe!";
+        document.getElementById("j5").innerHTML = t5;
+      } else {
+        t5 = "";
+        document.getElementById("j5").innerHTML = t5;
+      }
+*/
       if (this.ruleForm.city  == "") {
         t6 = "Veuillez saisire votre ville !";
         document.getElementById("j6").innerHTML = t6;
@@ -369,18 +396,6 @@ mounted: function () {
         t6 = "";
         document.getElementById("j6").innerHTML = t6;
       }
-
-
-      if (this.ruleForm.sexe == "") {
-        t5 = "Veuillez sélectionnez votre sexe !";
-        document.getElementById("j5").innerHTML = t5;
-      } else {
-        t5 = "";
-        document.getElementById("j5").innerHTML = t5;
-      }
-
-     
-
 
       if (this.ruleForm.email == "") {
         t7 = "veuillez saisire l'adresse mail  !";
@@ -395,6 +410,14 @@ mounted: function () {
         t7 = "";
         document.getElementById("j7").innerHTML = t7;
       }
+       if (this.ruleForm.password  == "") {
+        t8 = "Veuillez saisire un mot de passse !";
+        document.getElementById("j8").innerHTML = t8;
+      } else {
+        t8 = "";
+        document.getElementById("j8").innerHTML = t8;
+      }
+
     },
 
     register() {
@@ -444,7 +467,7 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
 */
 .form-box {
   width: 880px;
-  height: 480px;
+  height: 490px;
   position: relative;
   margin:  auto;
   background: #f9cea5dc;
@@ -452,6 +475,8 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   overflow: hidden;
   border-radius: 2rem;
   z-index: 3;
+  position: absolute;
+  margin-left: 20%;
 }
 
 
@@ -461,6 +486,7 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   position: relative;
   box-shadow: 0 0 20px 9px #ffffff42;
   border-radius: 30px;
+
 }
 .toggle-btn {
   padding: 10px 10px;
@@ -472,8 +498,10 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   color: white;
   font-size: medium;
   margin-left: 5%;
-  width:45%
+  width: 45%;
+
 }
+
 #btn {
   top: 0;
   left: 0;
@@ -485,14 +513,14 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),6179f3
   transition: 0.5s;
 }
 .input-group-login {
-  top: 10px;
+  margin-top: 40px;
   position: absolute;
   width: 280px;
   transition: 0.5s;
   font-size: large;
 }
 .input-group-register {
-  top: 120px;
+  top: 130px;
   position: absolute;
   width: 180px;
   transition: 0.5s;
@@ -534,8 +562,8 @@ input {
 
 #register {
   left: 420px;
-  margin: 4px, 4px;
-  margin-top: -4%;
+  margin: 2px, 4px;
+  margin-top: 1%;
   padding: 4px;
   width: 450px;
   height: 500px;
@@ -616,9 +644,12 @@ input {
 
 #mob {
   color: rgba(255, 255, 255, 0.783);
+  margin-left: 50%;
   margin-left: 42%;
   margin-top: 5%;
+  font-size: 80%;
 }
+
 
 @font-face {
   font-family: "fontfutura";
@@ -709,11 +740,18 @@ h1 {
   color: white;
   font-size: 50px;
 }
+p{
+  width: 200px;
+   color: red;
+  margin-top: -10%;
+  margin-bottom: -4%;
+  margin-left: 5%;
+
+    font-size: xx-small;}
+
 .forgetpw {
   width: 300px;
-  color: red;
-
-    font-size: small;
+ 
 
 }
 
