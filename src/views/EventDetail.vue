@@ -3,9 +3,8 @@
 <div style="margin:20px;margin-top:100px;border-radius:20px">
   <el-row justify="center"  >
       <el-col :span="18"><el-row justify="space-around">
-
     <el-col class="elCol" :span="11" style="padding:2%">  <img v-bind:src="event.eventImage"  style="height:250px; width:100%; border-radius:5px; object-fit: cover" >
-    <h1 style="margin-top:40px">N°{{event.idEvent}} : {{event.name}} </h1>
+    <h1 style="margin-top:40px">{{event.name}} </h1>
     <br>
     <span >{{event.description}}</span>
     <br><br>
@@ -14,16 +13,13 @@
     <el-col  :span="10">
       <el-row justify="center" :span="24" >
         <el-col class="elCol" style="margin-bottom:40px;background: rgb(255, 149, 0);" :span="24" ><button @click="acheter()"> Acheter </button></el-col>
-
         <el-col class="elCol"  :span="24" >
           <el-row justify="center">
             <el-col :span="11">
             <p>Organisateur</p>
-            
-            <p>Categorie</p>
-            
+
+            <p>Catégorie</p>
             <p>Sous catégories</p>
-            
             <p>Audience</p>
             <p>Date de début</p>
             <p>Date de fin</p>
@@ -36,8 +32,8 @@
                 <p><span>{{subcategories }} </span></p>
                 
                 <p><span v-if="event.justForWomen">Femmes seulement</span> <span v-else>Femmes et Hommes</span></p>
-                <p><span>{{event.startDate.split("T")[0] }}</span></p>
-                <p><span>{{event.endDate.split("T")[0]}}</span></p>
+                <p><span>{{formatDate(event.startDate) }}</span></p>
+                <p><span>{{formatDate(event.endDate)}}</span></p>
 
 
             </el-col>
@@ -51,8 +47,8 @@
               <p>Prix</p>
             </el-col>
             <el-col :span="12">
-                <p><span>{{event.ticketNb }} </span></p>
-               <p><span>{{event.price}}</span></p>
+                <p><span>{{event.ticketNb }} Tickets </span></p>
+               <p><span>{{event.price}} DA</span></p>
             </el-col>
           </el-row>
         </el-col>
@@ -77,6 +73,7 @@ export default {
         tags:""
     };
   },
+    
    created() {
     window.scrollTo(0,0);
 
@@ -94,6 +91,10 @@ export default {
     else this.$router.push("/");
 },
 methods:{
+      formatDate(date) {
+      const options = { year: 'numeric', month: 'long', day: 'numeric',hour:'numeric',minute : 'numeric'  }
+      return new Date(date).toLocaleDateString('fr', options)
+    },
   acheter(){
     this.$router.push({
       path: '/checkout', query: { id: this.event.idEvent }
