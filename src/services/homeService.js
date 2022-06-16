@@ -15,7 +15,7 @@ export default {
     console.log('cre',credentials);
     return Api().post("/payment/purchase", credentials, {
       headers: {
-        "x-access-token": localStorage.getItem("x-access-token"),
+        "x-access-token": localStorage.getItem("LoggedUser"),
       },
     }); 
   }
