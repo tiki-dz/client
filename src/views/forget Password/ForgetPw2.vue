@@ -88,7 +88,7 @@ const submitForm3 = (formEl: FormInstance | undefined) => {
         });
         ElNotification({
           title: "Succès",
-          message: account.data.message,
+          message:"Modification terminé",
           type: "success",
         });
         if (account.data.success) {
@@ -99,8 +99,8 @@ const submitForm3 = (formEl: FormInstance | undefined) => {
         console.log();
       } catch (error) {
         ElNotification({
-          title: "Error",
-          message: "error in the procces",
+          title: "Erreur",
+          message: "Echec d'operation",
           type: "error",
         });
       }
@@ -133,7 +133,7 @@ const validatePass2 = (rule: any, value: any, callback: any) => {
   if (value === "") {
     callback(new Error("Veuillez saisir à nouveau le mot de passe"));
   } else if (value !== inputForm.pass) {
-    callback(new Error("Deux entrées ne correspondent pas !"));
+    callback(new Error("Deux entrées ne correspondent pas!"));
   } else {
     callback();
   }

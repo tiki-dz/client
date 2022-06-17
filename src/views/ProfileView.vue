@@ -48,7 +48,7 @@
                      <br/><br/>
                      <el-button type="primary" plain class="edit" :disabled="eventList.length == 0" @click="updateImage()">Modifier</el-button>
                      <br/><br/>
-                     <a href="http://127.0.0.1:8090/resetPassword1" id="reinitialiser"> <i class="fa-solid fa-pen-to-square"></i>  Renitialiser le mot de passe</a>
+                     <a href="http://127.0.0.1:8091/resetPassword1" id="reinitialiser"> <i class="fa-solid fa-pen-to-square"></i>  Renitialiser le mot de passe</a>
              </el-col>
     <el-col :span="1" >
                 <el-divider direction="vertical" style="height:100%"  border-style="solid"/>
@@ -214,13 +214,66 @@
   >
     <el-menu-item index="1" id="index">Mes tickets</el-menu-item>
    
-    <el-menu-item index="3" id="index">Info</el-menu-item>
-    <el-menu-item index="4" id="index">saved event</el-menu-item>
   </el-menu>
   <el-card class="detail">
 
-      <el-empty description="description" />
-  </el-card>
+<el-row >
+<el-col :span="12" v-for="Purchase in Purchases" :key="Purchase">
+<el-card style="margin:3%">
+ <el-row> 
+   <el-row> 
+   
+   
+   <el-button
+     
+    
+   
+      >{{ Purchase.nbTickets }}</el-button
+    >
+   </el-row>
+ <el-row>
+    <!-- <img   :src="Purchase.eventImage" style="width:40px%; height:10px"/> -->
+<!-- <img :src="src" class="image" />  -->
+ </el-row>
+   
+    <el-row>
+      
+      <el-col style="margin:2%">
+      {{Purchase.event.data.name}}
+      </el-col>
+      </el-row>
+       <h3 style="color:#fff">heellooo</h3>
+      <el-row>
+      <el-col>
+      {{Purchase.event.data.address}}
+      </el-col>
+      </el-row>
+      </el-row>
+       <h3 style="color:#fff">heellooo</h3>
+      <el-row>
+      <el-row>
+      <el-col>
+      {{Purchase.event.data.organiser}}
+      </el-col>
+      </el-row>
+      <el-row>
+      <el-col>
+      {{Purchase.event.data.price}}
+      </el-col>
+      </el-row>
+        <!-- <el-divider direction="vertical" />
+        <el-col :span="3">{{ Purchase.idClient }}</el-col>
+        <el-divider direction="vertical" />
+        <el-col :span="3">{{ Purchase.idEvent }}</el-col>
+        <el-divider direction="vertical" /> -->
+    
+   
+   </el-row>
+</el-card>
+</el-col>
+
+
+</el-row>  </el-card>
     
 </div>
    <br/><br/><br/><br/><br/><br/><br/>
@@ -239,6 +292,10 @@ export default {
 
 data() {
     return {
+      Purchases:[],
+      profile:{},
+      profile2:{},
+
       src:"",
          eventList:[],
          sexeopt: [
@@ -280,12 +337,14 @@ try {
       });
        let response = await authService.getProfile();
         this.profile = response.data.data.User;
+                this.profile2 = response.data.data.User.Client;
+
                 console.log("ça fonctionne !");
                this.src= this.profile.profilePicture
-
+     this.getPurchases(this.profile2.idClient);
 loading.close()
       } catch (error) {
-                        ElNotification({
+            ElNotification({
             title: "Error",
             message: "Profile non trouvé  ",
             type: "error",
@@ -295,7 +354,17 @@ loading.close()
 
       }
     },
-  
+    async  getPurchases(idClient){
+
+      console.log("get achats");
+      console.log(idClient);
+     let response = await authService.getPurchases(idClient);
+     console.log(response.data.data);
+        this.Purchases = response.data.data;
+     // console.log(this.Purchases);
+
+    
+    },
 async modifierProfile() {
       try {
         this.tempInfo = Object.assign({}, this.profile);
@@ -327,7 +396,7 @@ async modifierProfile() {
         console.log("try",this.tempInfo);
         console.log("sauvgarde!");
         console.log(this.profile);
-  loading = ElLoading.service({
+      loading = ElLoading.service({
         lock: true,
         text: "Chargement",
         background: "&",
@@ -335,9 +404,20 @@ async modifierProfile() {
         const response = await authService.updateProfile(this.tempInfo);
         console.log(response.data);
         loading.close()
+         ElNotification({
+            title: "Succes",
+            message: "Profile modifié  ",
+            type: "success",
+          });
       } catch (error) {
         console.log(`ya un probleme dans la modif ! ${error}`);
         loading.close()
+         ElNotification({
+            title: "Erreur",
+            message: "Echec de modification, verfier vos champs  ",
+            type: "error",
+          });
+          location.reload()
       }
     },
 
@@ -357,7 +437,7 @@ async modifierProfile() {
               formData.append("updateimage", this.eventList[0].raw);
                    const response = await authService.updateImage(formData);
                     loading.close()
-location.reload()
+                location.reload()
 
         }
 

@@ -60,5 +60,11 @@ export default {
   },
   cities() {
     return Api().get('/autre/cities')
-  }
+  },
+getPurchases(credantials) {
+    console.log(credantials);
+    return Api().get("/payment/" + credantials+"/purchases" , {
+      headers: {
+        'x-access-token': localStorage.getItem("LoggedUser")}
+  })},
 }
